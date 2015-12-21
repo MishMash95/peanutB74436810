@@ -32,14 +32,31 @@ CREATE TABLE history_river (
 	position_id INTEGER REFERENCES positions(id), 
 	table_id INTEGER REFERENCES tableNames(id)
 );
+CREATE TABLE communityCards (
+	id INTEGER PRIMARY KEY NOT NULL,
+	flop1 INTEGER,
+	flop2 INTEGER,
+	turn INTEGER,
+	river INTEGER
+);
+CREATE TABLE userStats (id INTEGER PRIMARY KEY NOT NULL, user_id INTEGER, statId INTEGER);
+CREATE TABLE statNames (id INTEGER PRIMARY KEY NOT NULL, name VARCHAR(5) UNIQUE);
 CREATE TABLE tableNames (id INTEGER PRIMARY KEY NOT NULL, name VARCHAR(100) UNIQUE);
 CREATE TABLE users (id INTEGER PRIMARY KEY NOT NULL, username VARCHAR(100) UNIQUE);
 CREATE TABLE positions (id INTEGER PRIMARY KEY NOT NULL, positionName VARCHAR(5) UNIQUE);
+CREATE TABLE cards(
+	id INTEGER PRIMARY KEY NOT NULL,
+	cardCombo VARCHAR(2)
+);
 
 /* Populate the tables */
 
-/* Done using http://textmechanic.com/Combination-Generator.html */
-/* Need to remove ones for which there is an F not at the end */
+INSERT INTO statNames (name) VALUES
+("DBF");
+
+INSERT INTO cards (cardCombo) VALUES
+("Ac"),("As"),("Ad"),("Ah"),("Kc"),("Ks"),("Kd"),("Kh"),("Qc"),("Qs"),("Qd"),("Qh"),("Jc"),("Js"),("Jd"),("Jh"),("Tc"),("Ts"),("Td"),("Th"),("9c"),("9s"),("9d"),("9h"),("8c"),("8s"),("8d"),("8h"),("7c"),("7s"),("7d"),("7h"),("6c"),("6s"),("6d"),("6h"),("5c"),("5s"),("5d"),("5h"),("4c"),("4s"),("4d"),("4h"),("3c"),("3s"),("3d"),("3h"),("2c"),("2s"),("2d"),("2h");
+
 INSERT INTO playerActions (action_line) VALUES
 ("F"),("X"),("R"),("C"),
 ("FF"),("FX"),("FC"),("FR"),("XF"),("XX"),("XC"),("XR"),("CF"),("CX"),("CC"),("CR"),("RF"),("RX"),("RC"),("RR"),
@@ -49,3 +66,4 @@ INSERT INTO playerActions (action_line) VALUES
 
 INSERT INTO positions (positionName) VALUES
 ("BTN"),("SB"),("BB"),("UTG"),("UTG+1"),("MP1"),("MP2"),("HJ"),("CO");
+
