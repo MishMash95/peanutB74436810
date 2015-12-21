@@ -105,7 +105,7 @@ namespace peanut
 
         public void insertPlayer(string username)
         {
-            sql = poker_bot.Resources.insertPlayer;
+            sql = peanut.Resources.insertPlayer;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@username", username));
             command.ExecuteNonQuery();
@@ -113,7 +113,7 @@ namespace peanut
 
         public void insertPreFlopActions(string actions, int handId, int userId, string position, string tableName)
         {
-            sql = poker_bot.Resources.insertPreFlopActions;
+            sql = peanut.Resources.insertPreFlopActions;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@actionLine", actions));
             command.Parameters.Add(new SQLiteParameter("@handId", handId));
@@ -129,7 +129,7 @@ namespace peanut
         }
         public void insertFlopActions(string actions, int handId, int userId, string position, string tableName)
         {
-            sql = poker_bot.Resources.insertFlopActions;
+            sql = peanut.Resources.insertFlopActions;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@actionLine", actions));
             command.Parameters.Add(new SQLiteParameter("@handId", handId));
@@ -145,7 +145,7 @@ namespace peanut
         }
         public void insertTurnActions(string actions, int handId, int userId, string position, string tableName)
         {
-            sql = poker_bot.Resources.insertTurnActions;
+            sql = peanut.Resources.insertTurnActions;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@actionLine", actions));
             command.Parameters.Add(new SQLiteParameter("@handId", handId));
@@ -161,7 +161,7 @@ namespace peanut
         }
         public void insertRiverActions(string actions, int handId, int userId, string position, string tableName)
         {
-            sql = poker_bot.Resources.insertRiverActions;
+            sql = peanut.Resources.insertRiverActions;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@actionLine", actions));
             command.Parameters.Add(new SQLiteParameter("@handId", handId));
@@ -178,7 +178,7 @@ namespace peanut
 
         public void insertTable(string tableName)
         {
-            sql = poker_bot.Resources.insertTable;
+            sql = peanut.Resources.insertTable;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
             command.ExecuteNonQuery();
@@ -188,7 +188,7 @@ namespace peanut
         {
             if (tableExists(tableName))
             {
-                sql = poker_bot.Resources.truncateTable;
+                sql = peanut.Resources.truncateTable;
                 command = new SQLiteCommand(sql, dbConnection);
                 //var tableNameParameter = new SQLiteParameter("tableName", SqlDbType.VarChar) { Value = tableName };
                 command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
@@ -199,7 +199,7 @@ namespace peanut
 
         public bool tableExists(string tableName)
         {
-            sql = poker_bot.Resources.tableExists;
+            sql = peanut.Resources.tableExists;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
  
