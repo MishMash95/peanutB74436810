@@ -15,12 +15,12 @@ namespace peanut
             // Begin testing
 
             //db.truncateTable("playerActions");
-            db.truncateTable("history_preflop");
-            db.truncateTable("history_flop");
-            db.truncateTable("history_turn");
-            db.truncateTable("history_river");
-            db.truncateTable("tableNames");
-            db.truncateTable("users");
+            //db.truncateTable("history_preflop");
+            //db.truncateTable("history_flop");
+            //db.truncateTable("history_turn");
+            //db.truncateTable("history_river");
+            //db.truncateTable("tableNames");
+            //db.truncateTable("users");
             //db.truncateTable("positions");
 
             string[] usernames = new string[30] { "Christie", "Vernon", "Keisha", "Tonia", "Leopoldo", "Asuncion", "Pattie", "Mimi", "Alessandra", "Genesis", "Latoya", "Winfred", "Bennie", "Les", "Jerri", "Ashlea", "Faustino", "Corey", "Tonja", "Diann", "Spring", "Coral", "Dominque", "Olene", "Ileen", "Barbar", "Rachell", "Brice", "Shizuko", "Sondra" };

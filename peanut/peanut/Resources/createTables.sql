@@ -39,7 +39,7 @@ CREATE TABLE communityCards (
 	turn INTEGER,
 	river INTEGER
 );
-CREATE TABLE userStats (id INTEGER PRIMARY KEY NOT NULL, user_id INTEGER, statId INTEGER);
+CREATE TABLE userStats (id INTEGER PRIMARY KEY NOT NULL, user_id INTEGER, statId INTEGER, hand_id INTEGER);
 CREATE TABLE statNames (id INTEGER PRIMARY KEY NOT NULL, name VARCHAR(5) UNIQUE);
 CREATE TABLE tableNames (id INTEGER PRIMARY KEY NOT NULL, name VARCHAR(100) UNIQUE);
 CREATE TABLE users (id INTEGER PRIMARY KEY NOT NULL, username VARCHAR(100) UNIQUE);
@@ -52,7 +52,7 @@ CREATE TABLE cards(
 /* Populate the tables */
 
 INSERT INTO statNames (name) VALUES
-("DBF");
+("DBF"),("VPIP"),("PFR");
 
 INSERT INTO cards (cardCombo) VALUES
 ("Ac"),("As"),("Ad"),("Ah"),("Kc"),("Ks"),("Kd"),("Kh"),("Qc"),("Qs"),("Qd"),("Qh"),("Jc"),("Js"),("Jd"),("Jh"),("Tc"),("Ts"),("Td"),("Th"),("9c"),("9s"),("9d"),("9h"),("8c"),("8s"),("8d"),("8h"),("7c"),("7s"),("7d"),("7h"),("6c"),("6s"),("6d"),("6h"),("5c"),("5s"),("5d"),("5h"),("4c"),("4s"),("4d"),("4h"),("3c"),("3s"),("3d"),("3h"),("2c"),("2s"),("2d"),("2h");
