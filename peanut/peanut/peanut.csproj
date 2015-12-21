@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,7 +38,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite, Version=1.0.99.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\Program Files\System.Data.SQLite\2015\bin\System.Data.SQLite.dll</HintPath>
+      <HintPath>..\..\native\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -58,9 +59,44 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\tableExists.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\getUserId.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\getVPIP.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\insertFlopActions.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\insertPlayer.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\insertPreFlopActions.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\insertRiverActions.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\insertTable.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\insertTurnActions.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\createTables.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\getHandId.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\getPFR.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\truncateTable.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
