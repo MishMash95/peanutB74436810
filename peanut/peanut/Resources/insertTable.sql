@@ -1,0 +1,1 @@
+INSERT INTO tableNames (name) VALUES (@tableName);

@@ -1,0 +1,1 @@
+SELECT MAX(hand_id) as handId FROM history_preflop
