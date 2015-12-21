@@ -21,9 +21,8 @@ namespace peanut
         private SQLiteCommand command { get; set; }
         private SQLiteDataReader reader { get; set; }
 
-        public Database()
+        public Database(string dbFile = @"database.sqlite")
         {
-            string dbFile = @"database.sqlite";
             path = Directory.GetCurrentDirectory();
             Console.WriteLine("The current directory is {0}", path);
 
@@ -31,16 +30,16 @@ namespace peanut
             {
                 System.Diagnostics.Debug.WriteLine("Database file exists");
 
-                dbConnection = new SQLiteConnection("Data Source=" + path + "database.sqlite;Version=3;");
+                dbConnection = new SQLiteConnection("Data Source=" + path + dbFile + ";Version=3;");
                 dbConnection.Open();
             }
             else
             {
                 // Database file does not exists, so make it
-                SQLiteConnection.CreateFile("database.sqlite");
+                SQLiteConnection.CreateFile(dbFile);
                 System.Diagnostics.Debug.WriteLine("Creating database file");
 
-                dbConnection = new SQLiteConnection("Data Source=" + path + "database.sqlite;Version=3;");
+                dbConnection = new SQLiteConnection("Data Source=" + path + dbFile + ";Version=3;");
                 dbConnection.Open();
                 sql = peanut.Resources.createTables;
                 // Create all the tables
@@ -98,7 +97,7 @@ namespace peanut
             command = new SQLiteCommand(sql, dbConnection);
             reader = command.ExecuteReader();
             reader.Read();
-            int i = reader.GetInt32(0);
+            int i = reader.GetInt32(reader.GetOrdinal("handId")); // error
             return i;
         }
 

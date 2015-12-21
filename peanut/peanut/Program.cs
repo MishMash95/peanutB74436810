@@ -10,7 +10,8 @@ namespace peanut
     {
         static void Main(string[] args)
         {
-            var db = new Database();
+            string dbName = "test_" + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".sqlite";
+            var db = new Database(dbName);
 
             // Begin testing
 
