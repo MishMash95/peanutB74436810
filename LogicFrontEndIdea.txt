@@ -1,0 +1,45 @@
+abstract class HoleCards {
+     String handSignature = "";
+
+     abstract public Action preFlop( Hand hand );
+     abstract public Action flop( Hand hand);
+     abstract public Action turn( Hand hand);
+     abstract public Action river( Hand hand);
+
+     double getHandPreflopEquity(){
+         // Look up table using handSignature
+    }
+}
+
+class AK extends HoleCards {
+     String handSignature = "AK";
+
+     Action preflop( Hand hand ){
+
+           Bet a = hand.getCurrentBet();
+           if( a.size() > 5*BB ){
+                if( this.getHandPreflopEquity() > 0.95 ){
+                     return new ActionRaise( a.size()*3.5);
+                }
+          }
+     }
+
+}
+
+abstract class Action {
+
+
+
+}
+
+class ActionRaise extends Action {
+
+}
+
+class ActionCall extends Action {
+
+}
+
+class ActionFold extends Action {
+
+}
