@@ -63,7 +63,6 @@
     <Compile Include="PocketQueryParser\Runtime\olist.cs" />
     <Compile Include="PocketQueryParser\Runtime\parser.cs" />
     <Compile Include="PocketQueryParser\Runtime\serialise.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -98,8 +98,7 @@ namespace Model
             command = new SQLiteCommand(sql, dbConnection);
             reader = command.ExecuteReader();
             reader.Read();
-            int i = reader.GetInt32(reader.GetOrdinal("handId")); // error
-            return i;
+            return Convert.ToInt32(reader["handId"]);
         }
 
 
