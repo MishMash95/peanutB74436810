@@ -128,6 +128,17 @@ namespace Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT strength FROM preFlopHandStrength
+        ///ORDER by strength DESC
+        ///LIMIT(1, (@vpip / 100) * (SELECT COUNT() FROM preFlopHandStrength)).
+        /// </summary>
+        internal static string handRangeFromPercent {
+            get {
+                return ResourceManager.GetString("handRangeFromPercent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to INSERT INTO history_flop (action_id, hand_id, user_id, position_id, table_id)
         ///VALUES(
         ///	(SELECT id FROM playerActions WHERE action_line = @actionLine),
