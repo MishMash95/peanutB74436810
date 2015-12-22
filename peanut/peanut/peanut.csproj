@@ -36,6 +36,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.99.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\System.Data.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,21 +48,79 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="SQLiteColumn.cs" />
+    <Compile Include="SQLiteColumnList.cs" />
+    <Compile Include="SQLiteHelper.cs" />
+    <Compile Include="SQLiteTable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Database\Model.csproj">
-      <Project>{dc2221e6-e0a9-4f0e-9c5c-ef0e90b4aa5d}</Project>
-      <Name>Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Hand Evaluator\HandEvaluator.csproj">
       <Project>{57836673-fe81-4367-a4eb-aaa46fb954d2}</Project>
       <Name>HandEvaluator</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\createTables.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\getHandId.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\getPFR.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\getUserId.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\getVPIP.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\handRangeFromPercent.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\insertFlopActions.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\insertPlayer.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\insertPreFlopActions.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\insertRiverActions.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\insertTable.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\insertTurnActions.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tableExists.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\truncateTable.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SQLite.Interop.dll" />
+    <Content Include="System.Data.SQLite.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

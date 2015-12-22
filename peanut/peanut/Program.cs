@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 using HoldemHand;
-using Model;
 
 namespace peanut
 {
@@ -20,14 +19,14 @@ namespace peanut
 
             // Begin testing
 
-            //db.truncateTable("playerActions");
-            //db.truncateTable("history_preflop");
-            //db.truncateTable("history_flop");
-            //db.truncateTable("history_turn");
-            //db.truncateTable("history_river");
-            //db.truncateTable("tableNames");
-            //db.truncateTable("users");
-            //db.truncateTable("positions");
+            db.truncateTable("playerActions");
+            db.truncateTable("history_preflop");
+            db.truncateTable("history_flop");
+            db.truncateTable("history_turn");
+            db.truncateTable("history_river");
+            db.truncateTable("tableNames");
+            db.truncateTable("users");
+            db.truncateTable("positions");
 
             string[] usernames = new string[30] { "Christie", "Vernon", "Keisha", "Tonia", "Leopoldo", "Asuncion", "Pattie", "Mimi", "Alessandra", "Genesis", "Latoya", "Winfred", "Bennie", "Les", "Jerri", "Ashlea", "Faustino", "Corey", "Tonja", "Diann", "Spring", "Coral", "Dominque", "Olene", "Ileen", "Barbar", "Rachell", "Brice", "Shizuko", "Sondra" };
             string[] positions = new string[9] { "BTN", "SB", "BB", "UTG", "UTG+1", "MP1", "MP2", "HJ", "CO" };
@@ -55,6 +54,8 @@ namespace peanut
 
             int vpip = db.getVPIP("Christie");
             int pfr = db.getPFR("Christie");
+
+            Console.ReadLine();
 
         }
     }

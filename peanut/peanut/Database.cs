@@ -8,9 +8,8 @@ using System.IO;
 using System.Data.SQLite;
 using System.Reflection;
 using System.Data;
-using Model;
 
-namespace Model
+namespace peanut
 {
     public class Database
     {
@@ -21,15 +20,16 @@ namespace Model
         private SQLiteConnection dbConnection { get; set; }
         private SQLiteCommand command { get; set; }
         private SQLiteDataReader reader { get; set; }
+        private SQLiteHelper sh { get; set; }
 
         public Database(string dbFile = @"database.sqlite")
         {
-            path = Directory.GetCurrentDirectory();
+            path = Directory.GetCurrentDirectory() + "\\";
             Console.WriteLine("The current directory is {0}", path);
 
             if (File.Exists(dbFile))
             {
-                System.Diagnostics.Debug.WriteLine("Database file exists");
+                Console.WriteLine("Database file exists");
 
                 dbConnection = new SQLiteConnection("Data Source=" + path + dbFile + ";Version=3;");
                 dbConnection.Open();
@@ -37,8 +37,8 @@ namespace Model
             else
             {
                 // Database file does not exists, so make it
-                SQLiteConnection.CreateFile(dbFile);
-                System.Diagnostics.Debug.WriteLine("Creating database file");
+                SQLiteConnection.CreateFile(path + dbFile);
+                Console.WriteLine("Creating database file: `" + path + dbFile + "`");
 
                 dbConnection = new SQLiteConnection("Data Source=" + path + dbFile + ";Version=3;");
                 dbConnection.Open();
@@ -46,6 +46,31 @@ namespace Model
                 // Create all the tables
                 command = new SQLiteCommand(sql, dbConnection);
                 command.ExecuteNonQuery();
+            }
+
+            command = new SQLiteCommand();
+            command.Connection = dbConnection;
+            sh = new SQLiteHelper(command);
+            DataTable dt = sh.GetTableList();
+
+            Console.WriteLine("Checking tables exist...");
+            List<String> tableNames = new List<String>();
+            foreach (DataRow row in dt.Rows) // Loop over the rows.
+            {
+                foreach (var tableName in row.ItemArray) // Loop over the items.
+                {
+                    tableNames.Add(tableName.ToString());
+                }
+            }
+
+            List<String> expectedTableNames = new List<String>(new String[] { "playerActions", "history_preflop", "history_flop", "history_turn", "history_river", "communityCards", "userStats", "statNames", "userHands", "tableNames", "users", "positions", "preFlopHandStrengths", "cards" });
+            if (!expectedTableNames.Except(tableNames).Any())
+            {
+                Console.WriteLine("Passed.");
+            }
+            else
+            {
+                Console.WriteLine("Failed.");
             }
         }
 
@@ -188,11 +213,12 @@ namespace Model
             if (tableExists(tableName))
             {
                 sql = Resources.truncateTable;
-                command = new SQLiteCommand(sql, dbConnection);
-                //var tableNameParameter = new SQLiteParameter("tableName", SqlDbType.VarChar) { Value = tableName };
-                command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
-                //command.Parameters.Add(tableNameParameter);
-                command.ExecuteNonQuery();
+
+                sh.Execute(sql,
+                    new SQLiteParameter[] {
+                        new SQLiteParameter("@tableName", tableName)
+                    }
+                );
             }
         }
 

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Model {
+namespace peanut {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Model {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Model.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("peanut.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -62,9 +62,9 @@ namespace Model {
         
         /// <summary>
         ///   Looks up a localized string similar to /* Create the table structures */
-        ///CREATE TABLE playerActions (id INTEGER PRIMARY KEY NOT NULL, action_line VARCHAR(50) UNIQUE);
+        ///CREATE TABLE playerActions (id INTEGER PRIMARY KEY AUTOINCREMENT, action_line VARCHAR(50) UNIQUE);
         ///CREATE TABLE history_preflop (
-        ///	id INTEGER PRIMARY KEY NOT NULL, 
+        ///	id INTEGER PRIMARY KEY AUTOINCREMENT, 
         ///	action_id INTEGER REFERENCES playerActions(id),
         ///	hand_id INTEGER,
         ///	user_id INTEGER REFERENCES users(id),
@@ -72,8 +72,8 @@ namespace Model {
         ///	table_id INTEGER REFERENCES tableNames(id)
         ///);
         ///CREATE TABLE history_flop (
-        ///	id INTEGER PRIMARY KEY NOT NULL, 
-        ///	action_id INTEGER REFERENCES playerAction [rest of string was truncated]&quot;;.
+        ///	id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        ///	action_id INTEGER REFERENC [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string createTables {
             get {
