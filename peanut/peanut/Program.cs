@@ -11,21 +11,6 @@ namespace peanut
     {
         static void Main(string[] args)
         {
-            // Test outs function
-            string pocket = "As Ac";
-            string board = "Kd 8h 9c";
-            // Calcuate the outs
-            ulong outsmask =
-                Outs(Hand.ParseHand(pocket), Hand.ParseHand(board));
-
-            System.Diagnostics.Debug.WriteLine("[{0}] {1} : Outs Count {2}",
-                    pocket, board, Hand.BitCount(outsmask));
-
-            // List the cards
-            foreach (string card in Hand.Cards(outsmask))
-            {
-                System.Diagnostics.Debug.WriteLine("{0} ", card);
-            }
 
 
             string dbName = "test_" + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".sqlite";
@@ -68,33 +53,5 @@ namespace peanut
             int vpip = db.getVPIP("Christie");
             int pfr = db.getPFR("Christie");
         }
-
-        // Return a hand mask of the cards that improve our hand
-        static ulong Outs(ulong pocket, ulong board)
-        {
-            ulong retval = 0UL;
-            ulong hand = pocket + board;
-
-            // Get original hand value
-            uint playerOrigHandVal = Hand.Evaluate(hand);
-
-            // Look ahead one card
-            foreach (ulong card in Hand.Hands(0UL, hand, 1))
-            {
-                // Get new hand value
-                uint playerNewHandVal = Hand.Evaluate(hand + card);
-
-                // If the hand improved then we have an out
-                if (playerNewHandVal > playerOrigHandVal)
-                {
-                    // Add card to outs mask
-                    retval = card;
-                }
-            }
-
-            // return outs as a hand mask
-            return retval;
-        }
-
     }
 }
