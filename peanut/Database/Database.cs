@@ -8,6 +8,7 @@ using System.IO;
 using System.Data.SQLite;
 using System.Reflection;
 using System.Data;
+using Model;
 
 namespace Model
 {
@@ -41,7 +42,7 @@ namespace Model
 
                 dbConnection = new SQLiteConnection("Data Source=" + path + dbFile + ";Version=3;");
                 dbConnection.Open();
-                sql = Model.Resources.createTables;
+                sql = Resources.createTables;
                 // Create all the tables
                 command = new SQLiteCommand(sql, dbConnection);
                 command.ExecuteNonQuery();
@@ -56,7 +57,7 @@ namespace Model
 
         public int getVPIP(int userId)
         {
-            sql = Model.Resources.getVPIP;
+            sql = Resources.getVPIP;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@username", userId));
             reader = command.ExecuteReader();
@@ -70,7 +71,7 @@ namespace Model
         }
         public int getPFR(int userId)
         {
-            sql = Model.Resources.getVPIP;
+            sql = Resources.getVPIP;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@username", userId));
             reader = command.ExecuteReader();
@@ -84,7 +85,7 @@ namespace Model
         }
         public int getUserId(string username)
         {
-            sql = Model.Resources.getUserId;
+            sql = Resources.getUserId;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@username", username));
             reader = command.ExecuteReader();
@@ -93,7 +94,7 @@ namespace Model
         }
         public int getHandId()
         {
-            sql = Model.Resources.getHandId;
+            sql = Resources.getHandId;
             command = new SQLiteCommand(sql, dbConnection);
             reader = command.ExecuteReader();
             reader.Read();
@@ -104,7 +105,7 @@ namespace Model
 
         public void insertPlayer(string username)
         {
-            sql = Model.Resources.insertPlayer;
+            sql = Resources.insertPlayer;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@username", username));
             command.ExecuteNonQuery();
@@ -112,7 +113,7 @@ namespace Model
 
         public void insertPreFlopActions(string actions, int handId, int userId, string position, string tableName)
         {
-            sql = Model.Resources.insertPreFlopActions;
+            sql = Resources.insertPreFlopActions;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@actionLine", actions));
             command.Parameters.Add(new SQLiteParameter("@handId", handId));
@@ -128,7 +129,7 @@ namespace Model
         }
         public void insertFlopActions(string actions, int handId, int userId, string position, string tableName)
         {
-            sql = Model.Resources.insertFlopActions;
+            sql = Resources.insertFlopActions;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@actionLine", actions));
             command.Parameters.Add(new SQLiteParameter("@handId", handId));
@@ -144,7 +145,7 @@ namespace Model
         }
         public void insertTurnActions(string actions, int handId, int userId, string position, string tableName)
         {
-            sql = Model.Resources.insertTurnActions;
+            sql = Resources.insertTurnActions;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@actionLine", actions));
             command.Parameters.Add(new SQLiteParameter("@handId", handId));
@@ -160,7 +161,7 @@ namespace Model
         }
         public void insertRiverActions(string actions, int handId, int userId, string position, string tableName)
         {
-            sql = Model.Resources.insertRiverActions;
+            sql = Resources.insertRiverActions;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@actionLine", actions));
             command.Parameters.Add(new SQLiteParameter("@handId", handId));
@@ -177,7 +178,7 @@ namespace Model
 
         public void insertTable(string tableName)
         {
-            sql = Model.Resources.insertTable;
+            sql = Resources.insertTable;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
             command.ExecuteNonQuery();
@@ -187,7 +188,7 @@ namespace Model
         {
             if (tableExists(tableName))
             {
-                sql = Model.Resources.truncateTable;
+                sql = Resources.truncateTable;
                 command = new SQLiteCommand(sql, dbConnection);
                 //var tableNameParameter = new SQLiteParameter("tableName", SqlDbType.VarChar) { Value = tableName };
                 command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
@@ -198,10 +199,10 @@ namespace Model
 
         public bool tableExists(string tableName)
         {
-            sql = Model.Resources.tableExists;
+            sql = Resources.tableExists;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
- 
+
             int exists = command.ExecuteNonQuery();
             return true;
         }
