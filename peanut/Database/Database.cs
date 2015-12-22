@@ -9,9 +9,9 @@ using System.Data.SQLite;
 using System.Reflection;
 using System.Data;
 
-namespace peanut
+namespace Model
 {
-    class Database
+    public class Database
     {
         private string path { get; set; }
         private string filePath { get; set; }
@@ -41,7 +41,7 @@ namespace peanut
 
                 dbConnection = new SQLiteConnection("Data Source=" + path + dbFile + ";Version=3;");
                 dbConnection.Open();
-                sql = peanut.Resources.createTables;
+                sql = Model.Resources.createTables;
                 // Create all the tables
                 command = new SQLiteCommand(sql, dbConnection);
                 command.ExecuteNonQuery();
@@ -56,7 +56,7 @@ namespace peanut
 
         public int getVPIP(int userId)
         {
-            sql = peanut.Resources.getVPIP;
+            sql = Model.Resources.getVPIP;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@username", userId));
             reader = command.ExecuteReader();
@@ -70,7 +70,7 @@ namespace peanut
         }
         public int getPFR(int userId)
         {
-            sql = peanut.Resources.getVPIP;
+            sql = Model.Resources.getVPIP;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@username", userId));
             reader = command.ExecuteReader();
@@ -84,7 +84,7 @@ namespace peanut
         }
         public int getUserId(string username)
         {
-            sql = peanut.Resources.getUserId;
+            sql = Model.Resources.getUserId;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@username", username));
             reader = command.ExecuteReader();
@@ -93,7 +93,7 @@ namespace peanut
         }
         public int getHandId()
         {
-            sql = peanut.Resources.getHandId;
+            sql = Model.Resources.getHandId;
             command = new SQLiteCommand(sql, dbConnection);
             reader = command.ExecuteReader();
             reader.Read();
@@ -104,7 +104,7 @@ namespace peanut
 
         public void insertPlayer(string username)
         {
-            sql = peanut.Resources.insertPlayer;
+            sql = Model.Resources.insertPlayer;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@username", username));
             command.ExecuteNonQuery();
@@ -112,7 +112,7 @@ namespace peanut
 
         public void insertPreFlopActions(string actions, int handId, int userId, string position, string tableName)
         {
-            sql = peanut.Resources.insertPreFlopActions;
+            sql = Model.Resources.insertPreFlopActions;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@actionLine", actions));
             command.Parameters.Add(new SQLiteParameter("@handId", handId));
@@ -128,7 +128,7 @@ namespace peanut
         }
         public void insertFlopActions(string actions, int handId, int userId, string position, string tableName)
         {
-            sql = peanut.Resources.insertFlopActions;
+            sql = Model.Resources.insertFlopActions;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@actionLine", actions));
             command.Parameters.Add(new SQLiteParameter("@handId", handId));
@@ -144,7 +144,7 @@ namespace peanut
         }
         public void insertTurnActions(string actions, int handId, int userId, string position, string tableName)
         {
-            sql = peanut.Resources.insertTurnActions;
+            sql = Model.Resources.insertTurnActions;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@actionLine", actions));
             command.Parameters.Add(new SQLiteParameter("@handId", handId));
@@ -160,7 +160,7 @@ namespace peanut
         }
         public void insertRiverActions(string actions, int handId, int userId, string position, string tableName)
         {
-            sql = peanut.Resources.insertRiverActions;
+            sql = Model.Resources.insertRiverActions;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@actionLine", actions));
             command.Parameters.Add(new SQLiteParameter("@handId", handId));
@@ -177,7 +177,7 @@ namespace peanut
 
         public void insertTable(string tableName)
         {
-            sql = peanut.Resources.insertTable;
+            sql = Model.Resources.insertTable;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
             command.ExecuteNonQuery();
@@ -187,7 +187,7 @@ namespace peanut
         {
             if (tableExists(tableName))
             {
-                sql = peanut.Resources.truncateTable;
+                sql = Model.Resources.truncateTable;
                 command = new SQLiteCommand(sql, dbConnection);
                 //var tableNameParameter = new SQLiteParameter("tableName", SqlDbType.VarChar) { Value = tableName };
                 command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
@@ -198,7 +198,7 @@ namespace peanut
 
         public bool tableExists(string tableName)
         {
-            sql = peanut.Resources.tableExists;
+            sql = Model.Resources.tableExists;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
  
