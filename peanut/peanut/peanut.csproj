@@ -70,48 +70,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\createTables.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\getHandId.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\getPFR.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\getUserId.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\getVPIP.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\handRangeFromPercent.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\insertFlopActions.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\insertPlayer.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\insertPreFlopActions.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\insertRiverActions.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\insertTable.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\insertTurnActions.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\tableExists.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\truncateTable.sql" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Reader\Bitmaps.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
@@ -120,63 +78,77 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\3cards.bmp" />
-    <None Include="Resources\4cards.bmp" />
-    <None Include="Resources\5cards.bmp" />
-    <None Include="Resources\C10.bmp" />
-    <None Include="Resources\C2.bmp" />
-    <None Include="Resources\C3.bmp" />
-    <None Include="Resources\C4.bmp" />
-    <None Include="Resources\C5.bmp" />
-    <None Include="Resources\C6.bmp" />
-    <None Include="Resources\C7.bmp" />
-    <None Include="Resources\C8.bmp" />
-    <None Include="Resources\C9.bmp" />
-    <None Include="Resources\CA.bmp" />
-    <None Include="Resources\CJ.bmp" />
-    <None Include="Resources\CK.bmp" />
-    <None Include="Resources\CQ.bmp" />
-    <None Include="Resources\D10.bmp" />
-    <None Include="Resources\D2.bmp" />
-    <None Include="Resources\D3.bmp" />
-    <None Include="Resources\D4.bmp" />
-    <None Include="Resources\D5.bmp" />
-    <None Include="Resources\D6.bmp" />
-    <None Include="Resources\D7.bmp" />
-    <None Include="Resources\D8.bmp" />
-    <None Include="Resources\D9.bmp" />
-    <None Include="Resources\DA.bmp" />
-    <None Include="Resources\DJ.bmp" />
-    <None Include="Resources\DK.bmp" />
-    <None Include="Resources\DQ.bmp" />
-    <None Include="Resources\H10.bmp" />
-    <None Include="Resources\H2.bmp" />
-    <None Include="Resources\H3.bmp" />
-    <None Include="Resources\H4.bmp" />
-    <None Include="Resources\H5.bmp" />
-    <None Include="Resources\H6.bmp" />
-    <None Include="Resources\H7.bmp" />
-    <None Include="Resources\H8.bmp" />
-    <None Include="Resources\H9.bmp" />
-    <None Include="Resources\HA.bmp" />
-    <None Include="Resources\HJ.bmp" />
-    <None Include="Resources\HK.bmp" />
-    <None Include="Resources\HQ.bmp" />
-    <None Include="Resources\NoHand.bmp" />
-    <None Include="Resources\S10.bmp" />
-    <None Include="Resources\S2.bmp" />
-    <None Include="Resources\S3.bmp" />
-    <None Include="Resources\S4.bmp" />
-    <None Include="Resources\S5.bmp" />
-    <None Include="Resources\S6.bmp" />
-    <None Include="Resources\S7.bmp" />
-    <None Include="Resources\S8.bmp" />
-    <None Include="Resources\S9.bmp" />
-    <None Include="Resources\SA.bmp" />
-    <None Include="Resources\SJ.bmp" />
-    <None Include="Resources\SK.bmp" />
-    <None Include="Resources\SQ.bmp" />
-    <None Include="Resources\table1.bmp" />
+    <Content Include="Database\Resources\createTables.sql" />
+    <Content Include="Database\Resources\getHandId.sql" />
+    <Content Include="Database\Resources\getPFR.sql" />
+    <Content Include="Database\Resources\getUserId.sql" />
+    <Content Include="Database\Resources\getVPIP.sql" />
+    <Content Include="Database\Resources\handRangeFromPercent.sql" />
+    <Content Include="Database\Resources\insertFlopActions.sql" />
+    <Content Include="Database\Resources\insertPlayer.sql" />
+    <Content Include="Database\Resources\insertPreFlopActions.sql" />
+    <Content Include="Database\Resources\insertRiverActions.sql" />
+    <Content Include="Database\Resources\insertTable.sql" />
+    <Content Include="Database\Resources\insertTurnActions.sql" />
+    <Content Include="Database\Resources\tableExists.sql" />
+    <Content Include="Database\Resources\truncateTable.sql" />
+    <Content Include="Reader\Resources\3cards.bmp" />
+    <Content Include="Reader\Resources\4cards.bmp" />
+    <Content Include="Reader\Resources\5cards.bmp" />
+    <Content Include="Reader\Resources\C10.bmp" />
+    <Content Include="Reader\Resources\C2.bmp" />
+    <Content Include="Reader\Resources\C3.bmp" />
+    <Content Include="Reader\Resources\C4.bmp" />
+    <Content Include="Reader\Resources\C5.bmp" />
+    <Content Include="Reader\Resources\C6.bmp" />
+    <Content Include="Reader\Resources\C7.bmp" />
+    <Content Include="Reader\Resources\C8.bmp" />
+    <Content Include="Reader\Resources\C9.bmp" />
+    <Content Include="Reader\Resources\CA.bmp" />
+    <Content Include="Reader\Resources\CJ.bmp" />
+    <Content Include="Reader\Resources\CK.bmp" />
+    <Content Include="Reader\Resources\CQ.bmp" />
+    <Content Include="Reader\Resources\D10.bmp" />
+    <Content Include="Reader\Resources\D2.bmp" />
+    <Content Include="Reader\Resources\D3.bmp" />
+    <Content Include="Reader\Resources\D4.bmp" />
+    <Content Include="Reader\Resources\D5.bmp" />
+    <Content Include="Reader\Resources\D6.bmp" />
+    <Content Include="Reader\Resources\D7.bmp" />
+    <Content Include="Reader\Resources\D8.bmp" />
+    <Content Include="Reader\Resources\D9.bmp" />
+    <Content Include="Reader\Resources\DA.bmp" />
+    <Content Include="Reader\Resources\DJ.bmp" />
+    <Content Include="Reader\Resources\DK.bmp" />
+    <Content Include="Reader\Resources\DQ.bmp" />
+    <Content Include="Reader\Resources\H10.bmp" />
+    <Content Include="Reader\Resources\H2.bmp" />
+    <Content Include="Reader\Resources\H3.bmp" />
+    <Content Include="Reader\Resources\H4.bmp" />
+    <Content Include="Reader\Resources\H5.bmp" />
+    <Content Include="Reader\Resources\H6.bmp" />
+    <Content Include="Reader\Resources\H7.bmp" />
+    <Content Include="Reader\Resources\H8.bmp" />
+    <Content Include="Reader\Resources\H9.bmp" />
+    <Content Include="Reader\Resources\HA.bmp" />
+    <Content Include="Reader\Resources\HJ.bmp" />
+    <Content Include="Reader\Resources\HK.bmp" />
+    <Content Include="Reader\Resources\HQ.bmp" />
+    <Content Include="Reader\Resources\NoHand.bmp" />
+    <Content Include="Reader\Resources\S10.bmp" />
+    <Content Include="Reader\Resources\S2.bmp" />
+    <Content Include="Reader\Resources\S3.bmp" />
+    <Content Include="Reader\Resources\S4.bmp" />
+    <Content Include="Reader\Resources\S5.bmp" />
+    <Content Include="Reader\Resources\S6.bmp" />
+    <Content Include="Reader\Resources\S7.bmp" />
+    <Content Include="Reader\Resources\S8.bmp" />
+    <Content Include="Reader\Resources\S9.bmp" />
+    <Content Include="Reader\Resources\SA.bmp" />
+    <Content Include="Reader\Resources\SJ.bmp" />
+    <Content Include="Reader\Resources\SK.bmp" />
+    <Content Include="Reader\Resources\SQ.bmp" />
+    <Content Include="Reader\Resources\table1.bmp" />
     <Content Include="Natives\SQLite.Interop.dll" />
     <Content Include="Natives\System.Data.SQLite.dll" />
   </ItemGroup>
