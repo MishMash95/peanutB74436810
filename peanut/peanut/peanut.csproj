@@ -23,6 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -40,6 +41,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\System.Data.SQLite.dll</HintPath>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,6 +50,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bitmaps.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Bitmaps.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Card.cs" />
+    <Compile Include="CardDetection.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -113,12 +122,73 @@
     <None Include="Resources\truncateTable.sql" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Bitmaps.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Bitmaps.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\3cards.bmp" />
+    <None Include="Resources\4cards.bmp" />
+    <None Include="Resources\5cards.bmp" />
+    <None Include="Resources\C10.bmp" />
+    <None Include="Resources\C2.bmp" />
+    <None Include="Resources\C3.bmp" />
+    <None Include="Resources\C4.bmp" />
+    <None Include="Resources\C5.bmp" />
+    <None Include="Resources\C6.bmp" />
+    <None Include="Resources\C7.bmp" />
+    <None Include="Resources\C8.bmp" />
+    <None Include="Resources\C9.bmp" />
+    <None Include="Resources\CA.bmp" />
+    <None Include="Resources\CJ.bmp" />
+    <None Include="Resources\CK.bmp" />
+    <None Include="Resources\CQ.bmp" />
+    <None Include="Resources\D10.bmp" />
+    <None Include="Resources\D2.bmp" />
+    <None Include="Resources\D3.bmp" />
+    <None Include="Resources\D4.bmp" />
+    <None Include="Resources\D5.bmp" />
+    <None Include="Resources\D6.bmp" />
+    <None Include="Resources\D7.bmp" />
+    <None Include="Resources\D8.bmp" />
+    <None Include="Resources\D9.bmp" />
+    <None Include="Resources\DA.bmp" />
+    <None Include="Resources\DJ.bmp" />
+    <None Include="Resources\DK.bmp" />
+    <None Include="Resources\DQ.bmp" />
+    <None Include="Resources\H10.bmp" />
+    <None Include="Resources\H2.bmp" />
+    <None Include="Resources\H3.bmp" />
+    <None Include="Resources\H4.bmp" />
+    <None Include="Resources\H5.bmp" />
+    <None Include="Resources\H6.bmp" />
+    <None Include="Resources\H7.bmp" />
+    <None Include="Resources\H8.bmp" />
+    <None Include="Resources\H9.bmp" />
+    <None Include="Resources\HA.bmp" />
+    <None Include="Resources\HJ.bmp" />
+    <None Include="Resources\HK.bmp" />
+    <None Include="Resources\HQ.bmp" />
+    <None Include="Resources\NoHand.bmp" />
+    <None Include="Resources\S10.bmp" />
+    <None Include="Resources\S2.bmp" />
+    <None Include="Resources\S3.bmp" />
+    <None Include="Resources\S4.bmp" />
+    <None Include="Resources\S5.bmp" />
+    <None Include="Resources\S6.bmp" />
+    <None Include="Resources\S7.bmp" />
+    <None Include="Resources\S8.bmp" />
+    <None Include="Resources\S9.bmp" />
+    <None Include="Resources\SA.bmp" />
+    <None Include="Resources\SJ.bmp" />
+    <None Include="Resources\SK.bmp" />
+    <None Include="Resources\SQ.bmp" />
+    <None Include="Resources\table1.bmp" />
     <Content Include="SQLite.Interop.dll" />
     <Content Include="System.Data.SQLite.dll" />
   </ItemGroup>
