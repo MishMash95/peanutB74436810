@@ -50,6 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\SQLFiles.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SQLFiles.resx</DependentUpon>
+    </Compile>
     <Compile Include="Reader\Card.cs" />
     <Compile Include="Reader\CardDetection.cs" />
     <Compile Include="Database\Database.cs" />
@@ -59,6 +64,11 @@
     <Compile Include="Database\SQLiteColumnList.cs" />
     <Compile Include="Database\SQLiteHelper.cs" />
     <Compile Include="Database\SQLiteTable.cs" />
+    <Compile Include="Reader\BitMaps.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BitMaps.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -70,11 +80,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reader\Bitmaps.resx">
+    <EmbeddedResource Include="Reader\BitMaps.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>BitMaps.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Database\Resources.resx">
+    <EmbeddedResource Include="Database\SQLFiles.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SQLFiles.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
