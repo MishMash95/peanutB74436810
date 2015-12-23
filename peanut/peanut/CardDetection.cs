@@ -18,10 +18,10 @@ namespace peanut
             public string name;
         }
 
-        private static List<NamedBitmap> cardPics = new List<NamedBitmap>();
-        private static List<NamedBitmap> tablePics = new List<NamedBitmap>();
+        private List<NamedBitmap> cardPics = new List<NamedBitmap>();
+        private List<NamedBitmap> tablePics = new List<NamedBitmap>();
 
-        public static void Initialize()
+        public void Initialize()
         {
             //Load the Bitmaps into carPics, and tablePics Lists
             var assembly = Assembly.GetExecutingAssembly();
@@ -55,7 +55,7 @@ namespace peanut
             }
         }
 
-        private static Bitmap RetrieveBitmap(string name)
+        private Bitmap RetrieveBitmap(string name)
         {
             //Check cardPics List
             foreach (NamedBitmap nb in cardPics)
@@ -78,7 +78,7 @@ namespace peanut
             return null;
         }
 
-        public static Card[] RetieveCommunityCards()
+        public Card[] RetieveCommunityCards()
         {
             Bitmap currentCommunityCards = CaptureCommunityCardsImage();
 
@@ -132,7 +132,7 @@ namespace peanut
             return hand;
         }
 
-        private static bool SearchBitmap(Bitmap bigBmp, Bitmap smallBmp)
+        private bool SearchBitmap(Bitmap bigBmp, Bitmap smallBmp)
         {
             double tolerance = 0d;
             BitmapData smallData =
@@ -240,17 +240,17 @@ namespace peanut
             }
         }
 
-        private static Bitmap CaptureYourHandImage()
+        private Bitmap CaptureYourHandImage()
         {
             return CopyPartialBitmap(getTableBitMap(), new Rectangle(352, 365, 90, 53));
         }
 
-        private static Bitmap CaptureCommunityCardsImage()
+        private Bitmap CaptureCommunityCardsImage()
         {
             return CopyPartialBitmap(getTableBitMap(), new Rectangle(262, 204, 282, 74));
         }
 
-        private static Bitmap CopyPartialBitmap(Bitmap srcBitmap, Rectangle section)
+        private Bitmap CopyPartialBitmap(Bitmap srcBitmap, Rectangle section)
         {
             // Create the new bitmap and associated graphics object
             Bitmap bmp = new Bitmap(section.Width, section.Height);
@@ -266,14 +266,14 @@ namespace peanut
             return bmp;
         }
 
-        private static Bitmap getTableBitMap()
+        private Bitmap getTableBitMap()
         {
             return Bitmaps.table1;
         }
 
 
         // Converts a string "S", "C", "H", or "D" into the coresponding Card.Suit Enum
-        private static Card.Suit ConvertStringToSuit(string stringSuit)
+        private Card.Suit ConvertStringToSuit(string stringSuit)
         {
             Card.Suit cardSuit;
 
@@ -302,7 +302,7 @@ namespace peanut
 
 
         // Converts a string "2", "3", "4"... "J", "Q", "K", or "A"  into the coresponding Card.Rank Enum
-        private static Card.Rank ConvertStringToRank(string stringRank)
+        private Card.Rank ConvertStringToRank(string stringRank)
         {
             Card.Rank cardRank;
 

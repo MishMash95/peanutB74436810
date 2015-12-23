@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using HoldemHand;
+using System.Drawing;
 
 namespace peanut
 {
@@ -16,6 +17,16 @@ namespace peanut
 
             string dbName = "test_" + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".sqlite";
             var db = new Database(dbName);
+
+            var cd = new CardDetection();
+            Card[] cards = cd.RetieveCommunityCards();
+            foreach (Card c in cards)
+            {
+                Console.WriteLine("RANK:" + c.rank);
+                Console.WriteLine("SUIT:" + c.suit);
+                Console.WriteLine("NEXT CARD...");
+            }
+
 
             // Begin testing
 
