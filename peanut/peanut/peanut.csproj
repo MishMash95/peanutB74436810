@@ -50,25 +50,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bitmaps.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Bitmaps.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Card.cs" />
-    <Compile Include="CardDetection.cs" />
-    <Compile Include="Database.cs" />
+    <Compile Include="Reader\Card.cs" />
+    <Compile Include="Reader\CardDetection.cs" />
+    <Compile Include="Database\Database.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources.Designer.cs">
-      <DependentUpon>Resources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="SQLiteColumn.cs" />
-    <Compile Include="SQLiteColumnList.cs" />
-    <Compile Include="SQLiteHelper.cs" />
-    <Compile Include="SQLiteTable.cs" />
+    <Compile Include="Database\SQLiteColumn.cs" />
+    <Compile Include="Database\SQLiteColumnList.cs" />
+    <Compile Include="Database\SQLiteHelper.cs" />
+    <Compile Include="Database\SQLiteTable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -122,13 +112,11 @@
     <None Include="Resources\truncateTable.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Bitmaps.resx">
+    <EmbeddedResource Include="Reader\Bitmaps.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Bitmaps.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.resx">
+    <EmbeddedResource Include="Database\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -189,8 +177,8 @@
     <None Include="Resources\SK.bmp" />
     <None Include="Resources\SQ.bmp" />
     <None Include="Resources\table1.bmp" />
-    <Content Include="SQLite.Interop.dll" />
-    <Content Include="System.Data.SQLite.dll" />
+    <Content Include="Natives\SQLite.Interop.dll" />
+    <Content Include="Natives\System.Data.SQLite.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
