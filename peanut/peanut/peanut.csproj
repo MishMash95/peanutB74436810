@@ -48,11 +48,6 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.SQLite, Version=1.0.99.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\System.Data.SQLite.Core.1.0.99.0\lib\net451\System.Data.SQLite.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Data.SQLite.EF6, Version=1.0.99.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.EF6.1.0.99.0\lib\net451\System.Data.SQLite.EF6.dll</HintPath>
       <Private>True</Private>
@@ -80,10 +75,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Bitmaps.resx</DependentUpon>
     </Compile>
+    <Compile Include="Bot logic\PokerBot.cs" />
+    <Compile Include="Bot logic\PokerBotController.cs" />
     <Compile Include="Common\Action.cs" />
     <Compile Include="Common\Bet.cs" />
     <Compile Include="Common\Card.cs" />
     <Compile Include="Common\CommonUtils.cs" />
+    <Compile Include="Common\Hand.cs" />
     <Compile Include="Common\Villain.cs" />
     <Compile Include="Reader\ActionReader.cs" />
     <Compile Include="Reader\CardDetection.cs" />
@@ -149,10 +147,6 @@
     <Content Include="Database\Resources\tableExists.sql" />
     <Content Include="Database\Resources\truncateTable.sql" />
     <Content Include="Natives\Tesseract.dll" />
-    <Content Include="SQLite.Interop.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Natives\System.Data.SQLite.dll" />
     <Content Include="Reader\Resources\3cards.bmp" />
     <Content Include="Reader\Resources\4cards.bmp" />
     <Content Include="Reader\Resources\5cards.bmp" />
