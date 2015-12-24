@@ -1,0 +1,237 @@
+AA-JJ, AKs
+-MONSTER HANDS TO open raise with, rr and cap with from any pos:
+
+TT-99
+-Open raise from any pos.
+-Reraise from last 3 pos. MP, CO, BU
+-Fold to a 3-bet
+
+88-77
+-Open raise from any pos.
+-Fold to raise in MP, CO
+-Reraise only from BU
+-Fold to 3-bets
+
+66-44 
+-Fold from UTG
+-Open raise from MP, CO, BU 
+-Limp in from MP, CO, BU if 1-2 limpers before
+-Call if one raise and 2 limpers
+-FOld to all raises
+
+33-22
+-Fold from UTG and MP
+-Open Raise from CO, BU
+-Limp in from MP, CO, BU if 1-2 limpers before
+-FOld to all raises
+
+AQs
+-OPen raise from any pos.
+-reraise from MP, CO, BU
+-cap from BU
+-fold 3-bet from CO
+
+AJ-Ts
+-OPen raise from any pos.
+-reraise from MP, CO, BU
+-Fold to 3-bet
+
+AQs
+-OPen raise from any pos.
+-Reraise from BU
+-Fold to raise from MP, CO
+
+A8s
+-Open raise from any pos.
+-FOld to all raises and 3-bets
+
+A7s-2s
+-Fold UTG and MP
+-Open raise from CO, BU
+-Limp from MP if 1-2 limpers
+-Raise from CO, BU if 1-2 limpers
+-Fold to all raises and 3-bets
+
+KQs
+-open raise from all pos. even w/ 1-2 limpers
+-Reraise
+-fold to 3-bet cap
+
+KJs
+-open raise from all pos. even w/ 1-2 limpers
+-Fold MP to a raise
+-Reraise from CO, BU
+-Fold to 3-bet
+
+KTs
+-Open raise from all pos.even if 1-2 limpers
+-Fold to all raises
+
+K9s
+-OPen raise from any pos.
+-Fold from UTG
+-Raise if 1-2 limpers from BU
+-Fold if 1-2 limpers from other pos.
+-Fold to all raises
+
+K8s
+-OPen raise from MP, CO, BU
+-Fold UTG
+-Fold if limpers or raises
+
+KQ
+-Open raise from any pos. including with 1-2 limpers
+-Fold to raise from MP
+-Reraise from CO and BU
+-Fold to a 3-bet
+
+KJ
+-Open raise from any pos. including with 1-2 limpers
+-Fold to raises in MP and CO
+-Call or raise or fold to raise in BU
+-Fold to 3-bets
+
+KT
+-Open raise from MP, CO, and BU
+-Fold in MP if limpers
+-Call in CO, BU if 1-2 limpers
+-fold to all 3-bets
+
+K9
+-Open raise from MP, CO, and BU
+-Fold in MP, CO if limpers
+-Call in BU if 1-2 limpers
+-fold to all 3-bets
+
+QJs
+-Open raise from any pos.
+-Limp in MP if 1-2 limpers
+-Raise in CO, BU if 1-2 limpers
+-Fold to raises in MP, CO
+-Reraise in BU
+-Fold to 3-bets
+
+QTs
+-Fold UTG
+-Open raise from MP, CO, BU
+-Limp in MP if 1-2 limpers
+-Fold to all raises
+-Fold to all cbets
+
+Q9s
+-Fold UTG
+-Open raise from MP, CO, BU
+-Fold MP if 1-2 limpers
+-Call CO, BU if 1-2 limpers
+
+Q8s
+-Fold UTG
+-Open raise from MP, CO, BU
+-Fold MP, CO if 1-2 limpers
+-Call BU if 1-2 limpers
+
+QJ
+-Fold UTG
+-Open raise MP, CO, BU
+-Fold in MP if 1-2 limpers
+-Call in CO, BU
+-Fold to 3-bets
+
+QT
+-Fold UTG
+-Open raise MP, CO, BU
+-Fold in MP if 1-2 limpers
+-Call in CO, BU
+-Fold to 3-bets
+
+Q9
+-Fold UTG, MP
+-Open raise in CO, BU
+-Fold in MP, CO if 1-2 limpers
+-Call raise in BU
+-Fold to 3-bets
+
+JTs
+-Fold in UTG
+-Open raise in MP, CO, BU
+-Call in MP if 1-2 limpers
+-Raise in CO, BU if 1-2 limpers
+-Fold to all raises and c-bets
+
+J9s
+-Fold in UTG
+-Open raise in MP, CO, BU
+-Fold if 1-2 limpers in MP
+-Call if 1-2 limpers in CO, BU
+-Fold to all raises
+-Fold to all 3-bets
+
+J8s
+-Fold in UTG, MP
+-Open raise in CO, BU
+-Fold in MP, CO if 1-2 limpers
+-Call in BU if 1-2 limpers
+-Fold to all raises
+-Fold to all 3-bets
+
+JT
+-Fold UTG
+-Open raise from MP, CO, BU
+-Fold MP, CO if 1-2 limpers
+-Call BU if 1-2 limpers
+
+J9
+-Fold UTG, MP
+-Open raise in CO, BU
+-Fold if 1-2 limpers in MP, CO
+-Call if 2-3 limpers in BU
+-Fold to all raises
+-Fold to all 3-bets
+
+T9s
+-Fold in UTG
+-Open raise in MP, CO, BU
+-Fold in MP, CO if 1-2 limpers
+-Call in BU if 1-2 limpers
+-Fold to all raises
+-Fold to all 3-bets
+
+T8s
+-Fold in UTG, MP
+-Open raise CO, BU
+-Fold if 1-2 limpers in MP, CO
+-Call if 2-3 limpers in BU
+-Fold to all raise
+-Fold to all 3-bet
+
+T9
+-Fold in UTG, MP
+-Open raise CO, BU
+-Fold if 1-2 limpers in MP, CO
+-Call if 2-3 limpers in BU
+-Fold to all raise
+-Fold to all 3-bet
+
+98s
+-Fold in UTG, MP
+-Open raise CO, BU
+-Fold if 1-2 limpers in MP, CO
+-Call if 2-3 limpers in BU
+-Fold to all raise
+-Fold to all 3-bet
+
+87s
+-Fold in UTG, MP
+-Open raise CO, BU
+-Fold if 1-2 limpers in MP, CO
+-Call if 2-3 limpers in BU
+-Fold to all raise
+-Fold to all 3-bet
+
+76s
+-Fold in UTG, MP
+-Open raise CO, BU
+-Fold if 1-2 limpers in MP, CO
+-Call if 2-3 limpers in BU
+-Fold to all raise
+-Fold to all 3-bet
