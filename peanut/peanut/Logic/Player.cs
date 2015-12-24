@@ -24,9 +24,9 @@ namespace peanut.Logic
         public Position position;
         public double vpip;
         public double pfr;
-        public double bet3;
+        public double b3;
 
-        public Player(string name, double stackSize, Position pos, double vpip, double pfr, double bet3)
+        public Player(string name, double stackSize, Position pos, double vpip, double pfr, double b3)
         {
             this.name = name;
 

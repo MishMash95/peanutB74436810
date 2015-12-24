@@ -73,27 +73,40 @@ namespace peanut
                 Console.WriteLine("Failed.");
             }
         }
-
         ~Database()
         {
             // Cleanup
             // Close db connection
         }
 
-        public int getVPIP(int userId, string position = "ANY")
+        // Updates sql query based on its WHERE parameters/arguments
+        private void buildQuery(string position)
         {
-            sql = Resources.getVPIP;
-            if(position == "ANY")
+            if (position == "ANY")
             {
-                sql.Replace("|WHERE_ALLHANDS|","");
-                sql.Replace("|WHERE_VPIPHANDS|","");
+                sql.Replace("|WHERE_POSITION|", "");
+                sql.Replace("|ANDWHERE_POSITION|", "");
             }
             else
             {
-                sql.Replace("|WHERE_ALLHANDS|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
-                sql.Replace("|WHERE_VPIPHANDS|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
+                sql.Replace("|WHERE_POSITION|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
+                sql.Replace("|ANDWHERE_POSITION|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
             }
+        }
 
+        /*
+            To add:
+            -agg fac/steal%/flop cbet/foldflopcbet/limpcall%/bbfoldtosteal/wtsd
+
+            Parameters:
+            -people in pot/pot size
+
+            Have yet to test any functions and still need to add sql structures for most of them
+        */
+        public int getVPIP(int userId, string position = "ANY")
+        {
+            sql = Resources.getVPIP;
+            buildQuery(position);
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@username", userId));
             reader = command.ExecuteReader();
@@ -108,16 +121,7 @@ namespace peanut
         public int getPFR(int userId, string position = "ANY")
         {
             sql = Resources.getPFR;
-            if (position == "ANY")
-            {
-                sql.Replace("|WHERE_ALLHANDS|", "");
-                sql.Replace("|WHERE_PFRHANDS|", "");
-            }
-            else
-            {
-                sql.Replace("|WHERE_ALLHANDS|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
-                sql.Replace("|WHERE_PFRHANDS|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
-            }
+            buildQuery(position);
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@username", userId));
             reader = command.ExecuteReader();
@@ -129,30 +133,70 @@ namespace peanut
             int userId = getUserId(username);
             return getPFR(userId, position);
         }
-        public int get3Bet(int userId, string position = "ANY")
+
+        public int get3B(int userId, string position = "ANY")
         {
             sql = Resources.get3Bet;
-            if (position == "ANY")
-            {
-                sql.Replace("|WHERE_ALLHANDS|", "");
-                sql.Replace("|WHERE_3BETHANDS|", "");
-            }
-            else
-            {
-                sql.Replace("|WHERE_ALLHANDS|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
-                sql.Replace("|WHERE_3BETHANDS|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
-            }
+            buildQuery(position);
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@username", userId));
             reader = command.ExecuteReader();
             reader.Read();
             return (int)reader["3BET"];
         }
-        public int get3Bet(string username, string position = "ANY")
+        public int get3B(string username, string position = "ANY")
         {
             int userId = getUserId(username);
             return get3Bet(userId, position);
         }
+        public int getF3B(int userId, string position = "ANY")
+        {
+            sql = Resources.getF3B;
+            buildQuery(position);
+            command = new SQLiteCommand(sql, dbConnection);
+            command.Parameters.Add(new SQLiteParameter("@username", userId));
+            reader = command.ExecuteReader();
+            reader.Read();
+            return (int)reader["F3B"];
+        }
+        public int getF3B(string username, string position = "ANY")
+        {
+            int userId = getUserId(username);
+            return getF3B(userId, position);
+        }
+
+        public int get4Bet(int userId, string position = "ANY")
+        {
+            sql = Resources.get3Bet;
+            buildQuery(position);
+            command = new SQLiteCommand(sql, dbConnection);
+            command.Parameters.Add(new SQLiteParameter("@username", userId));
+            reader = command.ExecuteReader();
+            reader.Read();
+            return (int)reader["4BET"];
+        }
+        public int get4Bet(string username, string position = "ANY")
+        {
+            int userId = getUserId(username);
+            return get4Bet(userId, position);
+        }
+        public int getDonkBet(int userId, string position = "ANY")
+        {
+            sql = Resources.getDonkBet;
+            buildQuery(position);
+            command = new SQLiteCommand(sql, dbConnection);
+            command.Parameters.Add(new SQLiteParameter("@username", userId));
+            reader = command.ExecuteReader();
+            reader.Read();
+            return (int)reader["DONKBET"];
+        }
+        public int getDonkBet(string username, string position = "ANY")
+        {
+            int userId = getUserId(username);
+            return getDonkBet(userId, position);
+        }
+
+
         public int getUserId(string username)
         {
             sql = Resources.getUserId;
