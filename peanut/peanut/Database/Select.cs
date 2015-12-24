@@ -38,7 +38,7 @@ namespace peanut.Database
         public int getVPIP(string username, string position = "ANY")
         {
             sql = Resources.getVPIP;
-            sql = buildQuery(sql, sql, position);
+            sql = buildQuery(sql, position);
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@username", username));
             reader = command.ExecuteReader();
@@ -116,7 +116,7 @@ namespace peanut.Database
             reader.Read();
             return Convert.ToInt32(reader["handId"]);
         }
-        public int getNumberOfHandsOnPlayer(string username, string position = "ANY")
+        /*public int getNumberOfHandsOnPlayer(string username, string position = "ANY")
         {
             sql = Resources.getNumberOfHandsOnPlayer;
             sql = buildQuery(sql, position);
@@ -125,7 +125,7 @@ namespace peanut.Database
             reader = command.ExecuteReader();
             reader.Read();
             return Convert.ToInt32(reader["handId"]);
-        }
+        }*/
 
     }
 }

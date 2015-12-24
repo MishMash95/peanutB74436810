@@ -23,7 +23,7 @@ namespace peanut
             // Entry point for program
 
             string dbName = "test_" + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".sqlite";
-            var db = new Database(dbName);
+            var db = new Database.Database(dbName);
 
             var cd = new CardDetection();
             Card[] cards = cd.RetieveCommunityCards();
@@ -45,7 +45,7 @@ namespace peanut
             db.truncateTable("tableNames");
             db.truncateTable("users");
             db.truncateTable("positions");
-
+            /*
             string[] usernames = new string[30] { "Christie", "Vernon", "Keisha", "Tonia", "Leopoldo", "Asuncion", "Pattie", "Mimi", "Alessandra", "Genesis", "Latoya", "Winfred", "Bennie", "Les", "Jerri", "Ashlea", "Faustino", "Corey", "Tonja", "Diann", "Spring", "Coral", "Dominque", "Olene", "Ileen", "Barbar", "Rachell", "Brice", "Shizuko", "Sondra" };
             string[] positions = new string[9] { "BTN", "SB", "BB", "UTG", "UTG+1", "MP1", "MP2", "HJ", "CO" };
             string[] tables = new string[4] { "table1", "table2", "table3", "table4" };
@@ -71,7 +71,7 @@ namespace peanut
             db.insertPreFlopActions("C", handId + 8, "Christie", "CO", "table1");
 
             int vpip = db.getVPIP("Christie");
-            int pfr = db.getPFR("Christie");
+            int pfr = db.getPFR("Christie");*/
             
             Console.ReadLine();
 

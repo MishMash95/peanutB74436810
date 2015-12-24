@@ -89,6 +89,7 @@
     <Compile Include="Common\Hand.cs" />
     <Compile Include="Common\Villain.cs" />
     <Compile Include="Database\Insert.cs" />
+    <Compile Include="Database\QueryBuilder.cs" />
     <Compile Include="Database\Select.cs" />
     <Compile Include="Database\Test.cs" />
     <Compile Include="Reader\ActionReader.cs" />

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Data.SQLite;
+using System.Data;
 
 namespace peanut.Database
 {
@@ -57,7 +58,7 @@ namespace peanut.Database
         {
             Console.WriteLine("Checking `"+tableName+"` table exists...");
 
-            sql = Resources.tableExists;
+            string sql = Resources.tableExists;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
 
