@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using HoldemHand;
 using System.Drawing;
+using peanut.Bot_logic;
 
 namespace peanut
 {
@@ -13,10 +14,13 @@ namespace peanut
     {
         static void Main(string[] args)
         {
-            
+            // Test spawning off a bot controller
+            PokerBotController pbc = new PokerBotController(new PokerBotTest());
+            pbc.start();
+
             // Entry point for program
 
-            string dbName = "test_" + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".sqlite";
+            /*string dbName = "test_" + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".sqlite";
             var db = new Database(dbName);
 
             var cd = new CardDetection();
@@ -66,7 +70,7 @@ namespace peanut
 
             int vpip = db.getVPIP("Christie");
             int pfr = db.getPFR("Christie");
-
+            */
             Console.ReadLine();
 
         }
