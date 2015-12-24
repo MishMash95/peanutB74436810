@@ -35,7 +35,7 @@ namespace peanut.Database
 
             Have yet to test any functions and still need to add sql structures for most of them
         */
-        public int getVPIP(string username, string position = "ANY")
+        public int VPIP(string username, string position = "ANY")
         {
             sql = Resources.getVPIP;
             sql = buildQuery(sql, position);
@@ -43,9 +43,9 @@ namespace peanut.Database
             command.Parameters.Add(new SQLiteParameter("@username", username));
             reader = command.ExecuteReader();
             reader.Read();
-            return (int)reader["VPIP"];
+            return Convert.ToInt32(reader["VPIP"]);
         }
-        public int getPFR(string username, string position = "ANY")
+        public int PFR(string username, string position = "ANY")
         {
             sql = Resources.getPFR;
             sql = buildQuery(sql, position);
@@ -99,7 +99,7 @@ namespace peanut.Database
         }*/
 
 
-        public int getUserId(string username)
+        public int userId(string username)
         {
             sql = Resources.getUserId;
             command = new SQLiteCommand(sql, dbConnection);
@@ -108,13 +108,22 @@ namespace peanut.Database
             reader.Read();
             return (int)reader["username"];
         }
-        public int getHandId()
+        public int handId()
         {
             sql = Resources.getHandId;
             command = new SQLiteCommand(sql, dbConnection);
             reader = command.ExecuteReader();
             reader.Read();
-            return Convert.ToInt32(reader["handId"]);
+            if (reader["HANDID"] != DBNull.Value)
+            {
+                Console.WriteLine("Current handId = " + reader["HANDID"]);
+                return Convert.ToInt32(reader["HANDID"]);
+            }
+            else
+            {
+                Console.WriteLine("No hands stored in table. HandId = 0");
+                return 0;
+            }
         }
         /*public int getNumberOfHandsOnPlayer(string username, string position = "ANY")
         {

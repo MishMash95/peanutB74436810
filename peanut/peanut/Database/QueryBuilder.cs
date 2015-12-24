@@ -15,13 +15,13 @@ namespace peanut.Database
         {
             if (position == "ANY")
             {
-                sql.Replace("|WHERE_POSITION|", "");
-                sql.Replace("|ANDWHERE_POSITION|", "");
+                sql = sql.Replace("|WHERE_POSITION|", "");
+                sql = sql.Replace("|ANDWHERE_POSITION|", "");
             }
             else
             {
-                sql.Replace("|WHERE_POSITION|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
-                sql.Replace("|ANDWHERE_POSITION|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
+                sql = sql.Replace("|WHERE_POSITION|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
+                sql = sql.Replace("|ANDWHERE_POSITION|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
             }
 
             return sql;

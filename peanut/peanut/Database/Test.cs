@@ -42,15 +42,13 @@ namespace peanut.Database
                 }
             }
 
-            List<String> expectedTableNames = new List<String>(new String[] { "playerActions", "history_preflop", "history_flop", "history_turn", "history_river", "communityCards", "userStats", "statNames", "userHands", "tableNames", "users", "positions", "preFlopHandStrengths", "cards" });
+            List<String> expectedTableNames = new List<String>(new String[] { "possibleActions", "history_preflop", "history_flop", "history_turn", "history_river", "communityCards", "userStats", "statNames", "userHands", "tableNames", "users", "positions", "preFlopHandStrengths", "cards" });
             if (!expectedTableNames.Except(tableNames).Any())
             {
-                Console.WriteLine("Passed.");
                 return true;
             }
             else
             {
-                Console.WriteLine("Failed.");
                 return false;
             }
         }
@@ -63,7 +61,6 @@ namespace peanut.Database
             command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
 
             int exists = command.ExecuteNonQuery();
-            Console.WriteLine("Passed.");
             return true;
         }
     }

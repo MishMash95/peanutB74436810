@@ -1,1 +1,1 @@
-SELECT MAX(hand_id) as handId FROM history_preflop
+SELECT MAX(hand_id) AS HANDID FROM history_preflop

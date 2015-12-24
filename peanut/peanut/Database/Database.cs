@@ -30,7 +30,6 @@ namespace peanut.Database
         private SQLiteConnection dbConnection { get; set; }
         private SQLiteCommand command { get; set; }
         private SQLiteDataReader reader { get; set; }
-        private SQLiteHelper helper { get; set; }
 
         public Database(string dbFile = @"database.sqlite")
         {
@@ -58,9 +57,9 @@ namespace peanut.Database
                 // Create all the tables
                 try
                 {
-                    command = new SQLiteCommand(@sql, dbConnection);
-                    command.CommandText = @Resources.createTables;
-                    Console.WriteLine("SQL: "+command.CommandText+"/n");
+                    command = new SQLiteCommand(sql, dbConnection);
+                    command.CommandText = Resources.createTables;
+                    //Console.WriteLine("SQL: "+command.CommandText+"/n");
                     command.ExecuteNonQuery();
                 }
                 catch( Exception e )
@@ -78,16 +77,15 @@ namespace peanut.Database
 
         public void truncateTable(string tableName)
         {
-           /* if (tableExists(tableName))
-            {
+           if (test.tableExists(tableName))
+           {
                 sql = Resources.truncateTable;
-
-                sh.Execute(sql,
-                    new SQLiteParameter[] {
-                        new SQLiteParameter("@tableName", tableName)
-                    }
-                );
-            }*/
+                // Parameters can't be used for table name, schemas etc
+                sql = sql.Replace("@tableName", tableName);
+                command = new SQLiteCommand(sql, dbConnection);
+                Console.WriteLine("Emptying `" + tableName + "` table...");
+                command.ExecuteNonQuery();
+           }
         }
 
     }

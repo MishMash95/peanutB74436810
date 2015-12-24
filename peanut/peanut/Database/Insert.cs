@@ -26,14 +26,14 @@ namespace peanut.Database
             this.dbConnection = dbcon;
         }
 
-        public void insertPlayer(string username)
+        public void player(string username)
         {
             sql = Resources.insertPlayer;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@username", username));
             command.ExecuteNonQuery();
         }
-        public void insertPreFlopActions(string actions, int handId, string username, string position, string tableName)
+        public void preFlopActions(string actions, int handId, string username, string position, string tableName)
         {
             sql = Resources.insertPreFlopActions;
             command = new SQLiteCommand(sql, dbConnection);
@@ -44,7 +44,7 @@ namespace peanut.Database
             command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
             command.ExecuteNonQuery();
         }
-        public void insertFlopActions(string actions, int handId, string username, string position, string tableName)
+        public void flopActions(string actions, int handId, string username, string position, string tableName)
         {
             sql = Resources.insertFlopActions;
             command = new SQLiteCommand(sql, dbConnection);
@@ -55,7 +55,7 @@ namespace peanut.Database
             command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
             command.ExecuteNonQuery();
         }
-        public void insertTurnActions(string actions, int handId, string username, string position, string tableName)
+        public void turnActions(string actions, int handId, string username, string position, string tableName)
         {
             sql = Resources.insertTurnActions;
             command = new SQLiteCommand(sql, dbConnection);
@@ -66,7 +66,7 @@ namespace peanut.Database
             command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
             command.ExecuteNonQuery();
         }
-        public void insertRiverActions(string actions, int handId, string username, string position, string tableName)
+        public void riverActions(string actions, int handId, string username, string position, string tableName)
         {
             sql = Resources.insertRiverActions;
             command = new SQLiteCommand(sql, dbConnection);
@@ -77,7 +77,7 @@ namespace peanut.Database
             command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
             command.ExecuteNonQuery();
         }
-        public void insertTable(string tableName)
+        public void table(string tableName)
         {
             sql = Resources.insertTable;
             command = new SQLiteCommand(sql, dbConnection);
