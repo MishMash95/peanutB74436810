@@ -62,9 +62,9 @@ namespace peanut {
         
         /// <summary>
         ///   Looks up a localized string similar to /* Create the table structures */
-        ///CREATE TABLE playerActions (id INTEGER PRIMARY KEY AUTOINCREMENT, action_line VARCHAR(50) UNIQUE);
+        ///CREATE TABLE playerActions (id INTEGER PRIMARY KEY, action_line VARCHAR(50) UNIQUE);
         ///CREATE TABLE history_preflop (
-        ///	id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        ///	id INTEGER PRIMARY KEY, 
         ///	action_id INTEGER REFERENCES playerActions(id),
         ///	hand_id INTEGER,
         ///	user_id INTEGER REFERENCES users(id),
@@ -72,8 +72,10 @@ namespace peanut {
         ///	table_id INTEGER REFERENCES tableNames(id)
         ///);
         ///CREATE TABLE history_flop (
-        ///	id INTEGER PRIMARY KEY AUTOINCREMENT, 
-        ///	action_id INTEGER REFERENC [rest of string was truncated]&quot;;.
+        ///	id INTEGER PRIMARY KEY, 
+        ///	action_id INTEGER REFERENCES playerActions(id),
+        ///	hand_id INTEGER,
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string createTables {
             get {
@@ -94,9 +96,11 @@ namespace peanut {
         ///   Looks up a localized string similar to SELECT COUNT(*)/(
         ///	SELECT COUNT(*) FROM history_preflop WHERE
         ///	user_id = (SELECT id FROM users WHERE username = @username) 
+        ///	|WHERE_ALLHANDS|
         ///)*100 FROM history_preflop WHERE 
         ///user_id = (SELECT id FROM users WHERE username = @username) AND 
-        ///action_id = (SELECT id FROM playerActions WHERE action_line LIKE &apos;%R%&apos;);.
+        ///action_id = (SELECT id FROM playerActions WHERE action_line LIKE &apos;%R%&apos;)
+        ///|WHERE_PFRHANDS|;.
         /// </summary>
         internal static string getPFR {
             get {
@@ -117,9 +121,11 @@ namespace peanut {
         ///   Looks up a localized string similar to SELECT COUNT(*)/(
         ///	SELECT COUNT(*) FROM history_preflop WHERE
         ///	user_id = (SELECT id FROM users WHERE username = @username) 
+        ///	|WHERE_ALLHANDS|
         ///)*100 FROM history_preflop WHERE 
         ///user_id = (SELECT id FROM users WHERE username = @username) AND 
-        ///action_id = (SELECT id FROM playerActions WHERE action_line LIKE &apos;%C%&apos;);.
+        ///action_id = (SELECT id FROM playerActions WHERE action_line LIKE &apos;%C%&apos;)
+        ///|WHERE_VPIPHANDS|;.
         /// </summary>
         internal static string getVPIP {
             get {
@@ -217,16 +223,6 @@ namespace peanut {
         internal static string insertTurnActions {
             get {
                 return ResourceManager.GetString("insertTurnActions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] System_Data_SQLite {
-            get {
-                object obj = ResourceManager.GetObject("System_Data_SQLite", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         

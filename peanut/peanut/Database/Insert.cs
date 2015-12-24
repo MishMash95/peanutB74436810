@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 using System.Data.SQLite;
 
+using peanut.Database;
+
 namespace peanut.Database
 {
     /*

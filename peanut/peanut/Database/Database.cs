@@ -71,14 +71,14 @@ namespace peanut.Database
                 }
             }
 
-            this.insert = new Insert();
-            this.select = new Select();
-            this.test = new Test();
+            this.insert = new Insert(dbConnection);
+            this.select = new Select(dbConnection);
+            this.test = new Test(dbConnection);
         }
 
         public void truncateTable(string tableName)
         {
-            if (tableExists(tableName))
+           /* if (tableExists(tableName))
             {
                 sql = Resources.truncateTable;
 
@@ -87,7 +87,7 @@ namespace peanut.Database
                         new SQLiteParameter("@tableName", tableName)
                     }
                 );
-            }
+            }*/
         }
 
     }
