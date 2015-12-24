@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.IO;
-using System.Data.SQLite;
 using System.Reflection;
 using System.Data;
+
+using System.Data.SQLite;
 
 namespace peanut
 {
@@ -42,10 +43,23 @@ namespace peanut
 
                 dbConnection = new SQLiteConnection("Data Source=" + path + dbFile + ";Version=3;");
                 dbConnection.Open();
+               
+                
                 sql = Resources.createTables;
                 // Create all the tables
-                command = new SQLiteCommand(sql, dbConnection);
-                command.ExecuteNonQuery();
+                try
+                {
+                    command = new SQLiteCommand(@sql, dbConnection);
+                    command.CommandText = @Resources.createTables;
+                    Console.WriteLine("SQL: "+command.CommandText+"/n");
+                    command.ExecuteNonQuery();
+                }
+                catch( Exception e )
+                {
+                    Console.WriteLine("\nException:");
+                    Console.WriteLine(e);
+                    Console.WriteLine();
+                }
             }
 
             command = new SQLiteCommand();

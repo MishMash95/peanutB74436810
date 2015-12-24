@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace peanut.Database {
+namespace peanut {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace peanut.Database {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("peanut.Database.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("peanut.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -217,6 +217,34 @@ namespace peanut.Database {
         internal static string insertTurnActions {
             get {
                 return ResourceManager.GetString("insertTurnActions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] System_Data_SQLite {
+            get {
+                object obj = ResourceManager.GetObject("System_Data_SQLite", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT count(*) FROM sqlite_master WHERE type=&apos;table&apos; AND name=@tableName;.
+        /// </summary>
+        internal static string tableExists {
+            get {
+                return ResourceManager.GetString("tableExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DELETE FROM @tableName.
+        /// </summary>
+        internal static string truncateTable {
+            get {
+                return ResourceManager.GetString("truncateTable", resourceCulture);
             }
         }
     }

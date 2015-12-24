@@ -20,6 +20,11 @@ namespace peanut
 
         private List<NamedBitmap> cardPics = new List<NamedBitmap>();
         private List<NamedBitmap> tablePics = new List<NamedBitmap>();
+        public  Bitmap currentBitmap = null;
+
+        public CardDetection() {
+            this.Initialize();
+        }
 
         public void Initialize()
         {
@@ -53,6 +58,10 @@ namespace peanut
                     }
                 }
             }
+        }
+
+        public void setBitmap( Bitmap bitmap ) {
+            currentBitmap = bitmap;
         }
 
         private Bitmap RetrieveBitmap(string name)
@@ -268,7 +277,7 @@ namespace peanut
 
         private Bitmap getTableBitMap()
         {
-            return Bitmaps.table1;
+            return currentBitmap;
         }
 
 
