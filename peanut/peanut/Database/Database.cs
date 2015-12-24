@@ -80,33 +80,78 @@ namespace peanut
             // Close db connection
         }
 
-        public int getVPIP(int userId)
+        public int getVPIP(int userId, string position = "ANY")
         {
             sql = Resources.getVPIP;
+            if(position == "ANY")
+            {
+                sql.Replace("|WHERE_ALLHANDS|","");
+                sql.Replace("|WHERE_VPIPHANDS|","");
+            }
+            else
+            {
+                sql.Replace("|WHERE_ALLHANDS|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
+                sql.Replace("|WHERE_VPIPHANDS|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
+            }
+
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@username", userId));
             reader = command.ExecuteReader();
             reader.Read();
             return (int)reader["VPIP"];
         }
-        public int getVPIP(string username)
+        public int getVPIP(string username, string position = "ANY")
         {
             int userId = getUserId(username);
-            return getVPIP(userId);
+            return getVPIP(userId, position);
         }
-        public int getPFR(int userId)
+        public int getPFR(int userId, string position = "ANY")
         {
-            sql = Resources.getVPIP;
+            sql = Resources.getPFR;
+            if (position == "ANY")
+            {
+                sql.Replace("|WHERE_ALLHANDS|", "");
+                sql.Replace("|WHERE_PFRHANDS|", "");
+            }
+            else
+            {
+                sql.Replace("|WHERE_ALLHANDS|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
+                sql.Replace("|WHERE_PFRHANDS|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
+            }
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@username", userId));
             reader = command.ExecuteReader();
             reader.Read();
-            return (int)reader["VPIP"];
+            return (int)reader["PFR"];
         }
-        public int getPFR(string username)
+        public int getPFR(string username, string position = "ANY")
         {
             int userId = getUserId(username);
-            return getPFR(userId);
+            return getPFR(userId, position);
+        }
+        public int get3Bet(int userId, string position = "ANY")
+        {
+            sql = Resources.get3Bet;
+            if (position == "ANY")
+            {
+                sql.Replace("|WHERE_ALLHANDS|", "");
+                sql.Replace("|WHERE_3BETHANDS|", "");
+            }
+            else
+            {
+                sql.Replace("|WHERE_ALLHANDS|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
+                sql.Replace("|WHERE_3BETHANDS|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
+            }
+            command = new SQLiteCommand(sql, dbConnection);
+            command.Parameters.Add(new SQLiteParameter("@username", userId));
+            reader = command.ExecuteReader();
+            reader.Read();
+            return (int)reader["3BET"];
+        }
+        public int get3Bet(string username, string position = "ANY")
+        {
+            int userId = getUserId(username);
+            return get3Bet(userId, position);
         }
         public int getUserId(string username)
         {
@@ -125,7 +170,22 @@ namespace peanut
             reader.Read();
             return Convert.ToInt32(reader["handId"]);
         }
-
+        public int getNumberOfHandsOnPlayer(string username, string position = "ANY")
+        {
+            sql = Resources.getNumberOfHandsOnPlayer;
+            if (position == "ANY")
+            {
+                sql.Replace("|WHERE_ALLHANDS|", "");
+            }
+            else
+            {
+                sql.Replace("|WHERE_ALLHANDS|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
+            }
+            command = new SQLiteCommand(sql, dbConnection);
+            reader = command.ExecuteReader();
+            reader.Read();
+            return Convert.ToInt32(reader["handId"]);
+        }
 
         public void insertPlayer(string username)
         {
@@ -134,7 +194,6 @@ namespace peanut
             command.Parameters.Add(new SQLiteParameter("@username", username));
             command.ExecuteNonQuery();
         }
-
         public void insertPreFlopActions(string actions, int handId, int userId, string position, string tableName)
         {
             sql = Resources.insertPreFlopActions;
@@ -199,7 +258,6 @@ namespace peanut
             int userId = getUserId(username);
             insertRiverActions(actions, handId, userId, position, tableName);
         }
-
         public void insertTable(string tableName)
         {
             sql = Resources.insertTable;
