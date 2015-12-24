@@ -12,10 +12,16 @@ using System.Data.SQLite;
 
 namespace peanut.Database
 {
+    /*
+        API class to interact with the database
+        - Includes some general functions for emptying and creating the database/tables
+    */
+
     public class Database
     {
         private string path { get; set; }
         private string filePath { get; set; }
+        private string sql { get; set; }
 
         public Insert insert;
         public Select select;

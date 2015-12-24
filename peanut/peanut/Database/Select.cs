@@ -8,6 +8,9 @@ using System.Data.SQLite;
 
 namespace peanut.Database
 {
+    /*
+        Functions to return all statistics / data from the database
+    */
     public class Select : QueryBuilder
     {
         private SQLiteConnection dbConnection { get; set; }
@@ -21,7 +24,6 @@ namespace peanut.Database
         {
             this.dbConnection = dbcon;
         }
-
 
 
         /*

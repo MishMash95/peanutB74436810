@@ -8,6 +8,10 @@ using System.Data.SQLite;
 
 namespace peanut.Database
 {
+    /*
+        A series of functions to test the database structure/schema and to verify the select/insert queries
+        are executing successfully and as expected
+    */
     public class Test : QueryBuilder
     {
         private SQLiteConnection dbConnection { get; set; }

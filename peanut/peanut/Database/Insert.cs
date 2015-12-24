@@ -8,6 +8,9 @@ using System.Data.SQLite;
 
 namespace peanut.Database
 {
+    /*
+        All data to be inserted into the database must be done through this class
+    */
     public class Insert : QueryBuilder
     {
         private SQLiteConnection dbConnection { get; set; }
@@ -20,7 +23,6 @@ namespace peanut.Database
         {
             this.dbConnection = dbcon;
         }
-
 
         public void insertPlayer(string username)
         {

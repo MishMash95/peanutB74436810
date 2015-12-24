@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace peanut.Database
 {
+    /*
+        This class constructs the queries based on a set of parameters/filters
+    */
     public class QueryBuilder
     {
-        // Updates sql query based on its WHERE parameters/arguments
         protected string buildQuery(string sql, string position)
         {
             if (position == "ANY")
