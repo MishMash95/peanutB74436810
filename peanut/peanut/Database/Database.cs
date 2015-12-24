@@ -10,18 +10,21 @@ using System.Data;
 
 using System.Data.SQLite;
 
-namespace peanut
+namespace peanut.Database
 {
     public class Database
     {
         private string path { get; set; }
         private string filePath { get; set; }
-        private string sql { get; set; }
+
+        public Insert insert;
+        public Select select;
+        public Test test;
 
         private SQLiteConnection dbConnection { get; set; }
         private SQLiteCommand command { get; set; }
         private SQLiteDataReader reader { get; set; }
-        private SQLiteHelper sh { get; set; }
+        private SQLiteHelper helper { get; set; }
 
         public Database(string dbFile = @"database.sqlite")
         {
@@ -62,266 +65,9 @@ namespace peanut
                 }
             }
 
-            command = new SQLiteCommand();
-            command.Connection = dbConnection;
-            sh = new SQLiteHelper(command);
-            DataTable dt = sh.GetTableList();
-
-            Console.WriteLine("Checking tables exist...");
-            List<String> tableNames = new List<String>();
-            foreach (DataRow row in dt.Rows) // Loop over the rows.
-            {
-                foreach (var tableName in row.ItemArray) // Loop over the items.
-                {
-                    tableNames.Add(tableName.ToString());
-                }
-            }
-
-            List<String> expectedTableNames = new List<String>(new String[] { "playerActions", "history_preflop", "history_flop", "history_turn", "history_river", "communityCards", "userStats", "statNames", "userHands", "tableNames", "users", "positions", "preFlopHandStrengths", "cards" });
-            if (!expectedTableNames.Except(tableNames).Any())
-            {
-                Console.WriteLine("Passed.");
-            }
-            else
-            {
-                Console.WriteLine("Failed.");
-            }
-        }
-        ~Database()
-        {
-            // Cleanup
-            // Close db connection
-        }
-
-        // Updates sql query based on its WHERE parameters/arguments
-        private void buildQuery(string position)
-        {
-            if (position == "ANY")
-            {
-                sql.Replace("|WHERE_POSITION|", "");
-                sql.Replace("|ANDWHERE_POSITION|", "");
-            }
-            else
-            {
-                sql.Replace("|WHERE_POSITION|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
-                sql.Replace("|ANDWHERE_POSITION|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
-            }
-        }
-
-        /*
-            To add:
-            -agg fac/steal%/flop cbet/foldflopcbet/limpcall%/bbfoldtosteal/wtsd
-
-            Parameters:
-            -people in pot/pot size
-
-            Have yet to test any functions and still need to add sql structures for most of them
-        */
-        public int getVPIP(int userId, string position = "ANY")
-        {
-            sql = Resources.getVPIP;
-            buildQuery(position);
-            command = new SQLiteCommand(sql, dbConnection);
-            command.Parameters.Add(new SQLiteParameter("@username", userId));
-            reader = command.ExecuteReader();
-            reader.Read();
-            return (int)reader["VPIP"];
-        }
-        public int getVPIP(string username, string position = "ANY")
-        {
-            int userId = getUserId(username);
-            return getVPIP(userId, position);
-        }
-        public int getPFR(int userId, string position = "ANY")
-        {
-            sql = Resources.getPFR;
-            buildQuery(position);
-            command = new SQLiteCommand(sql, dbConnection);
-            command.Parameters.Add(new SQLiteParameter("@username", userId));
-            reader = command.ExecuteReader();
-            reader.Read();
-            return (int)reader["PFR"];
-        }
-        public int getPFR(string username, string position = "ANY")
-        {
-            int userId = getUserId(username);
-            return getPFR(userId, position);
-        }
-
-        public int get3B(int userId, string position = "ANY")
-        {
-            sql = Resources.get3Bet;
-            buildQuery(position);
-            command = new SQLiteCommand(sql, dbConnection);
-            command.Parameters.Add(new SQLiteParameter("@username", userId));
-            reader = command.ExecuteReader();
-            reader.Read();
-            return (int)reader["3BET"];
-        }
-        public int get3B(string username, string position = "ANY")
-        {
-            int userId = getUserId(username);
-            return get3Bet(userId, position);
-        }
-        public int getF3B(int userId, string position = "ANY")
-        {
-            sql = Resources.getF3B;
-            buildQuery(position);
-            command = new SQLiteCommand(sql, dbConnection);
-            command.Parameters.Add(new SQLiteParameter("@username", userId));
-            reader = command.ExecuteReader();
-            reader.Read();
-            return (int)reader["F3B"];
-        }
-        public int getF3B(string username, string position = "ANY")
-        {
-            int userId = getUserId(username);
-            return getF3B(userId, position);
-        }
-
-        public int get4Bet(int userId, string position = "ANY")
-        {
-            sql = Resources.get3Bet;
-            buildQuery(position);
-            command = new SQLiteCommand(sql, dbConnection);
-            command.Parameters.Add(new SQLiteParameter("@username", userId));
-            reader = command.ExecuteReader();
-            reader.Read();
-            return (int)reader["4BET"];
-        }
-        public int get4Bet(string username, string position = "ANY")
-        {
-            int userId = getUserId(username);
-            return get4Bet(userId, position);
-        }
-        public int getDonkBet(int userId, string position = "ANY")
-        {
-            sql = Resources.getDonkBet;
-            buildQuery(position);
-            command = new SQLiteCommand(sql, dbConnection);
-            command.Parameters.Add(new SQLiteParameter("@username", userId));
-            reader = command.ExecuteReader();
-            reader.Read();
-            return (int)reader["DONKBET"];
-        }
-        public int getDonkBet(string username, string position = "ANY")
-        {
-            int userId = getUserId(username);
-            return getDonkBet(userId, position);
-        }
-
-
-        public int getUserId(string username)
-        {
-            sql = Resources.getUserId;
-            command = new SQLiteCommand(sql, dbConnection);
-            command.Parameters.Add(new SQLiteParameter("@username", username));
-            reader = command.ExecuteReader();
-            reader.Read();
-            return (int)reader["username"];
-        }
-        public int getHandId()
-        {
-            sql = Resources.getHandId;
-            command = new SQLiteCommand(sql, dbConnection);
-            reader = command.ExecuteReader();
-            reader.Read();
-            return Convert.ToInt32(reader["handId"]);
-        }
-        public int getNumberOfHandsOnPlayer(string username, string position = "ANY")
-        {
-            sql = Resources.getNumberOfHandsOnPlayer;
-            if (position == "ANY")
-            {
-                sql.Replace("|WHERE_ALLHANDS|", "");
-            }
-            else
-            {
-                sql.Replace("|WHERE_ALLHANDS|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
-            }
-            command = new SQLiteCommand(sql, dbConnection);
-            reader = command.ExecuteReader();
-            reader.Read();
-            return Convert.ToInt32(reader["handId"]);
-        }
-
-        public void insertPlayer(string username)
-        {
-            sql = Resources.insertPlayer;
-            command = new SQLiteCommand(sql, dbConnection);
-            command.Parameters.Add(new SQLiteParameter("@username", username));
-            command.ExecuteNonQuery();
-        }
-        public void insertPreFlopActions(string actions, int handId, int userId, string position, string tableName)
-        {
-            sql = Resources.insertPreFlopActions;
-            command = new SQLiteCommand(sql, dbConnection);
-            command.Parameters.Add(new SQLiteParameter("@actionLine", actions));
-            command.Parameters.Add(new SQLiteParameter("@handId", handId));
-            command.Parameters.Add(new SQLiteParameter("@userId", userId));
-            command.Parameters.Add(new SQLiteParameter("@position", position));
-            command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
-            command.ExecuteNonQuery();
-        }
-        public void insertPreFlopActions(string actions, int handId, string username, string position, string tableName)
-        {
-            int userId = getUserId(username);
-            insertPreFlopActions(actions, handId, userId, position, tableName);
-        }
-        public void insertFlopActions(string actions, int handId, int userId, string position, string tableName)
-        {
-            sql = Resources.insertFlopActions;
-            command = new SQLiteCommand(sql, dbConnection);
-            command.Parameters.Add(new SQLiteParameter("@actionLine", actions));
-            command.Parameters.Add(new SQLiteParameter("@handId", handId));
-            command.Parameters.Add(new SQLiteParameter("@userId", userId));
-            command.Parameters.Add(new SQLiteParameter("@position", position));
-            command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
-            command.ExecuteNonQuery();
-        }
-        public void insertFlopActions(string actions, int handId, string username, string position, string tableName)
-        {
-            int userId = getUserId(username);
-            insertFlopActions(actions, handId, userId, position, tableName);
-        }
-        public void insertTurnActions(string actions, int handId, int userId, string position, string tableName)
-        {
-            sql = Resources.insertTurnActions;
-            command = new SQLiteCommand(sql, dbConnection);
-            command.Parameters.Add(new SQLiteParameter("@actionLine", actions));
-            command.Parameters.Add(new SQLiteParameter("@handId", handId));
-            command.Parameters.Add(new SQLiteParameter("@userId", userId));
-            command.Parameters.Add(new SQLiteParameter("@position", position));
-            command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
-            command.ExecuteNonQuery();
-        }
-        public void insertTurnActions(string actions, int handId, string username, string position, string tableName)
-        {
-            int userId = getUserId(username);
-            insertFlopActions(actions, handId, userId, position, tableName);
-        }
-        public void insertRiverActions(string actions, int handId, int userId, string position, string tableName)
-        {
-            sql = Resources.insertRiverActions;
-            command = new SQLiteCommand(sql, dbConnection);
-            command.Parameters.Add(new SQLiteParameter("@actionLine", actions));
-            command.Parameters.Add(new SQLiteParameter("@handId", handId));
-            command.Parameters.Add(new SQLiteParameter("@userId", userId));
-            command.Parameters.Add(new SQLiteParameter("@position", position));
-            command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
-            command.ExecuteNonQuery();
-        }
-        public void insertRiverActions(string actions, int handId, string username, string position, string tableName)
-        {
-            int userId = getUserId(username);
-            insertRiverActions(actions, handId, userId, position, tableName);
-        }
-        public void insertTable(string tableName)
-        {
-            sql = Resources.insertTable;
-            command = new SQLiteCommand(sql, dbConnection);
-            command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
-            command.ExecuteNonQuery();
+            this.insert = new Insert();
+            this.select = new Select();
+            this.test = new Test();
         }
 
         public void truncateTable(string tableName)
@@ -336,16 +82,6 @@ namespace peanut
                     }
                 );
             }
-        }
-
-        public bool tableExists(string tableName)
-        {
-            sql = Resources.tableExists;
-            command = new SQLiteCommand(sql, dbConnection);
-            command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
-
-            int exists = command.ExecuteNonQuery();
-            return true;
         }
 
     }

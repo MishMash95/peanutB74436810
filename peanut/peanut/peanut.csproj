@@ -83,6 +83,9 @@
     <Compile Include="Common\CommonUtils.cs" />
     <Compile Include="Common\Hand.cs" />
     <Compile Include="Common\Villain.cs" />
+    <Compile Include="Database\Insert.cs" />
+    <Compile Include="Database\Select.cs" />
+    <Compile Include="Database\Test.cs" />
     <Compile Include="Reader\ActionReader.cs" />
     <Compile Include="Reader\CardDetection.cs" />
     <Compile Include="Database\Database.cs" />
