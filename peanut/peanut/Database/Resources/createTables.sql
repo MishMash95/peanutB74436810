@@ -8,14 +8,18 @@ CREATE TABLE history (
 	position_id INTEGER REFERENCES positions(id),
 	table_id INTEGER REFERENCES tableNames(id),
 	street_id INTEGER REFERENCES streets(id),
-	pot_size INTEGER, /* Size of the pot at the end of the betting round */
-	flg_has_position INTEGER, /* 1 if the Player is closest to BTN in the hand */
+	pot_size INTEGER,			/* Size of the pot at the end of the betting round */
 
-	flg_opp INTEGER,
+	flg_has_position INTEGER,   /* If the player has position over all the other players in the hand */
+	flg_open INTEGER,
 	flg_3bet INTEGER,
-	flg_4bet INTEGER,
-	flg_agg INTEGER,
-	flg_win INTEGER
+	flg_4bet INTEGER, 
+	flg_limp INTEGER, /* If the player called the big blind */
+	flg_cold_call INTEGER, /* If the player called an open raise */
+	flg_squeeze INTEGER, /* A squeeze play is when a player raises pre-flop, gets at least one cold call, then a third player re-raises after this. The 3 bet is a squeeze play because of the cold caller(s) in the hand. */
+	flg_aggressor INTEGER,  /* If the player was the last to raise on the proceeding street */
+	flg_donk INTEGER,  /* Called a cbet on the proceeding street and then open bet on this street */
+	flg_win INTEGER   /* If the player took down the pot on this street */
 );
 CREATE TABLE communityCards (
 	id INTEGER PRIMARY KEY,
@@ -33,7 +37,7 @@ CREATE TABLE users (id INTEGER PRIMARY KEY, username VARCHAR(100) UNIQUE);
 CREATE TABLE positions (id INTEGER PRIMARY KEY, positionName VARCHAR(5) UNIQUE);
 CREATE TABLE cards(
 	id INTEGER PRIMARY KEY,
-	cardCombo VARCHAR(2)
+	card VARCHAR(2)
 );
 
 /* Populate the tables */
@@ -42,7 +46,7 @@ INSERT INTO tableNames (name) VALUES ("UNKNOWN");
 INSERT INTO streets (name) VALUES
 ("preflop"),("flop"),("turn"),("river");
 
-INSERT INTO cards (cardCombo) VALUES
+INSERT INTO cards (card) VALUES
 ("Ac"),("As"),("Ad"),("Ah"),("Kc"),("Ks"),("Kd"),("Kh"),("Qc"),("Qs"),("Qd"),("Qh"),("Jc"),("Js"),("Jd"),("Jh"),("Tc"),("Ts"),("Td"),("Th"),("9c"),("9s"),("9d"),("9h"),("8c"),("8s"),("8d"),("8h"),("7c"),("7s"),("7d"),("7h"),("6c"),("6s"),("6d"),("6h"),("5c"),("5s"),("5d"),("5h"),("4c"),("4s"),("4d"),("4h"),("3c"),("3s"),("3d"),("3h"),("2c"),("2s"),("2d"),("2h");
 
 INSERT INTO possibleActions (action_line) VALUES

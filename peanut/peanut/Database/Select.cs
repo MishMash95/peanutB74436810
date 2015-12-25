@@ -56,7 +56,7 @@ namespace peanut.Database
             return Convert.ToDouble(reader["PFR"]);
         }
 
-        public int BET3(string username, string position = "ANY")
+        /*public int BET3(string username, string position = "ANY", string street = "ANY")
         {
             sql = Resources.get3Bet;
             sql = buildQuery(sql, position);
@@ -65,7 +65,7 @@ namespace peanut.Database
             reader = command.ExecuteReader();
             reader.Read();
             return (int)reader["3BET"];
-        }
+        }*/
 
         /*
         public int getF3B(string username, string position = "ANY")
