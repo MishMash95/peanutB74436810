@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="Bot logic\PokerBot.cs" />
     <Compile Include="Bot logic\PokerBotController.cs" />
+    <Compile Include="Common\Calculator.cs" />
     <Compile Include="Common\Action.cs" />
     <Compile Include="Common\Bet.cs" />
     <Compile Include="Common\Card.cs" />
