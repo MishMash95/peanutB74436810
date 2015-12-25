@@ -42,7 +42,7 @@ namespace peanut.Database
                 }
             }
 
-            List<String> expectedTableNames = new List<String>(new String[] { "possibleActions", "history_preflop", "history_flop", "history_turn", "history_river", "communityCards", "userStats", "statNames", "userHands", "tableNames", "users", "positions", "preFlopHandStrengths", "cards" });
+            List<String> expectedTableNames = new List<String>(new String[] { "possibleActions", "history", "communityCards", "streets", "userStats", "statNames", "userHands", "tableNames", "users", "positions", "preFlopHandStrengths", "cards" });
             if (!expectedTableNames.Except(tableNames).Any())
             {
                 return true;

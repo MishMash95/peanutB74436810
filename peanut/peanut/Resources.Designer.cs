@@ -62,20 +62,15 @@ namespace peanut {
         
         /// <summary>
         ///   Looks up a localized string similar to /* Create the table structures */
-        ///CREATE TABLE playerActions (id INTEGER PRIMARY KEY, action_line VARCHAR(50) UNIQUE);
-        ///CREATE TABLE history_preflop (
+        ///CREATE TABLE possibleActions (id INTEGER PRIMARY KEY, action_line VARCHAR(50) UNIQUE);
+        ///CREATE TABLE history (
         ///	id INTEGER PRIMARY KEY, 
-        ///	action_id INTEGER REFERENCES playerActions(id),
-        ///	hand_id INTEGER,
+        ///	action_id INTEGER REFERENCES playerActions(id), /* Action player made on this street */
+        ///	hand_id INTEGER,  /* What hand this is */
         ///	user_id INTEGER REFERENCES users(id),
-        ///	position_id INTEGER REFERENCES positions(id), 
-        ///	table_id INTEGER REFERENCES tableNames(id)
-        ///);
-        ///CREATE TABLE history_flop (
-        ///	id INTEGER PRIMARY KEY, 
-        ///	action_id INTEGER REFERENCES playerActions(id),
-        ///	hand_id INTEGER,
-        /// [rest of string was truncated]&quot;;.
+        ///	position_id INTEGER REFERENCES positions(id), /* Position on the table for this hand */
+        ///	table_id INTEGER REFERENCES tableNames(id),
+        ///	street_id INTEGER REFERENCE [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string createTables {
             get {
@@ -84,7 +79,7 @@ namespace peanut {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT MAX(hand_id) as handId FROM history_preflop.
+        ///   Looks up a localized string similar to SELECT MAX(hand_id) AS HANDID FROM history.
         /// </summary>
         internal static string getHandId {
             get {
@@ -93,14 +88,22 @@ namespace peanut {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT COUNT(*)/(
-        ///	SELECT COUNT(*) FROM history_preflop WHERE
-        ///	user_id = (SELECT id FROM users WHERE username = @username) 
-        ///	|WHERE_ALLHANDS|
-        ///)*100 FROM history_preflop WHERE 
-        ///user_id = (SELECT id FROM users WHERE username = @username) AND 
-        ///action_id = (SELECT id FROM playerActions WHERE action_line LIKE &apos;%R%&apos;)
-        ///|WHERE_PFRHANDS|;.
+        ///   Looks up a localized string similar to SELECT
+        ///CAST(
+        ///(
+        ///	SELECT COUNT(*) FROM history 
+        ///	INNER JOIN users ON(users.id = history.user_id)
+        ///	INNER JOIN possibleActions ON (possibleActions.id = history.action_id)
+        ///	INNER JOIN streets ON(streets.id = history.street_id)
+        ///	WHERE (possibleActions.action_line LIKE &apos;%R%&apos;)
+        ///	AND users.username = @username AND streets.name = &apos;preflop&apos;
+        ///	|ANDWHERE_POSITION|
+        ///	
+        ///) AS float)/ CAST(
+        ///(
+        ///	SELECT COUNT(*) FROM history 
+        ///	INNER JOIN users ON(users.id = history.user_id)
+        ///	INNER JOIN streets ON(streets.id = histor [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string getPFR {
             get {
@@ -118,14 +121,22 @@ namespace peanut {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT COUNT(*)/(
-        ///	SELECT COUNT(*) FROM history_preflop WHERE
-        ///	user_id = (SELECT id FROM users WHERE username = @username) 
-        ///	|WHERE_ALLHANDS|
-        ///)*100 FROM history_preflop WHERE 
-        ///user_id = (SELECT id FROM users WHERE username = @username) AND 
-        ///action_id = (SELECT id FROM playerActions WHERE action_line LIKE &apos;%C%&apos;)
-        ///|WHERE_VPIPHANDS|;.
+        ///   Looks up a localized string similar to SELECT
+        ///CAST(
+        ///(
+        ///	SELECT COUNT(*) FROM history 
+        ///	INNER JOIN users ON(users.id = history.user_id)
+        ///	INNER JOIN possibleActions ON (possibleActions.id = history.action_id)
+        ///	INNER JOIN streets ON(streets.id = history.street_id)
+        ///	WHERE (possibleActions.action_line LIKE &apos;%C%&apos; OR possibleActions.action_line LIKE &apos;%R%&apos;)
+        ///	AND users.username = @username AND streets.name = &apos;preflop&apos;
+        ///	|ANDWHERE_POSITION|
+        ///	
+        ///) AS float)/ CAST(
+        ///(
+        ///	SELECT COUNT(*) FROM history 
+        ///	INNER JOIN users ON(users.id = history.user_id)
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string getVPIP {
             get {
@@ -134,29 +145,20 @@ namespace peanut {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT strength FROM preFlopHandStrength
-        ///ORDER by strength DESC
-        ///LIMIT(1, (@vpip / 100) * (SELECT COUNT() FROM preFlopHandStrength)).
-        /// </summary>
-        internal static string handRangeFromPercent {
-            get {
-                return ResourceManager.GetString("handRangeFromPercent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to INSERT INTO history_flop (action_id, hand_id, user_id, position_id, table_id)
+        ///   Looks up a localized string similar to INSERT INTO history (action_id, hand_id, user_id, position_id, table_id, street_id, final_pot_size)
         ///VALUES(
-        ///	(SELECT id FROM playerActions WHERE action_line = @actionLine),
+        ///	(SELECT id FROM possibleActions WHERE action_line = @actionLine),
         ///	@handId,
-        ///	@userId,
+        ///	(SELECT id FROM users WHERE username = @username),
         ///	(SELECT id FROM positions WHERE positionName = @position),
-        ///	(SELECT id FROM tableNames WHERE name = @tableName)
+        ///	(SELECT id FROM tableNames WHERE name = @tableName),
+        ///	(SELECT id FROM streets WHERE name = @streetName),
+        ///	@finalPotSize
         ///);.
         /// </summary>
-        internal static string insertFlopActions {
+        internal static string insertActions {
             get {
-                return ResourceManager.GetString("insertFlopActions", resourceCulture);
+                return ResourceManager.GetString("insertActions", resourceCulture);
             }
         }
         
@@ -170,59 +172,11 @@ namespace peanut {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INSERT INTO history_preflop (action_id, hand_id, user_id, position_id, table_id)
-        ///VALUES(
-        ///	(SELECT id FROM playerActions WHERE action_line = @actionLine),
-        ///	@handId,
-        ///	@userId,
-        ///	(SELECT id FROM positions WHERE positionName = @position),
-        ///	(SELECT id FROM tableNames WHERE name = @tableName)
-        ///);.
-        /// </summary>
-        internal static string insertPreFlopActions {
-            get {
-                return ResourceManager.GetString("insertPreFlopActions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to INSERT INTO history_river (action_id, hand_id, user_id, position_id, table_id)
-        ///VALUES(
-        ///	(SELECT id FROM playerActions WHERE action_line = @actionLine),
-        ///	@handId,
-        ///	@userId,
-        ///	(SELECT id FROM positions WHERE positionName = @position),
-        ///	(SELECT id FROM tableNames WHERE name = @tableName)
-        ///);.
-        /// </summary>
-        internal static string insertRiverActions {
-            get {
-                return ResourceManager.GetString("insertRiverActions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to INSERT INTO tableNames (name) VALUES (@tableName);.
         /// </summary>
         internal static string insertTable {
             get {
                 return ResourceManager.GetString("insertTable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to INSERT INTO history_turn (action_id, hand_id, user_id, position_id, table_id)
-        ///VALUES(
-        ///	(SELECT id FROM playerActions WHERE action_line = @actionLine),
-        ///	@handId,
-        ///	@userId,
-        ///	(SELECT id FROM positions WHERE positionName = @position),
-        ///	(SELECT id FROM tableNames WHERE name = @tableName)
-        ///);.
-        /// </summary>
-        internal static string insertTurnActions {
-            get {
-                return ResourceManager.GetString("insertTurnActions", resourceCulture);
             }
         }
         

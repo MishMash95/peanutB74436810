@@ -35,20 +35,15 @@ namespace peanut
                 Console.WriteLine("NEXT CARD...");
             }*/
 
-
-            // Begin testing
-
             Console.WriteLine("");
             Console.WriteLine("Testing database API...");
             Console.WriteLine("");
 
             //db.truncateTable("possibleActions");
-            db.truncateTable("history_preflop");
-            db.truncateTable("history_flop");
-            db.truncateTable("history_turn");
-            db.truncateTable("history_river");
+            db.truncateTable("history");
             db.truncateTable("tableNames");
             db.truncateTable("users");
+            //db.truncateTable("streets");
             //db.truncateTable("positions");
             Console.WriteLine("Finished emptying tables...");
             Console.WriteLine("");
@@ -68,15 +63,15 @@ namespace peanut
             int oldHandId = db.select.handId();
             Console.WriteLine("Start of test. handId = " + oldHandId);
             // VPIP(ALL) = 87.5%  VPIP(BTN) = 100%  PFR(ALL) = 50%   PFR(CO) = 0%
-            db.insert.preFlopActions("R", oldHandId, "Christie", "BTN", "table1");
-            db.insert.preFlopActions("CR", oldHandId + 1, "Christie", "SB", "table1");
-            db.insert.preFlopActions("XC", oldHandId + 2, "Christie", "BB", "table1");
-            db.insert.preFlopActions("F", oldHandId + 3, "Christie", "UTG", "table1");
-            db.insert.preFlopActions("CC", oldHandId + 4, "Christie", "MP", "table1");
-            db.insert.preFlopActions("C", oldHandId + 5, "Christie", "CO", "table1");
+            db.insert.actions("R", oldHandId, "Christie", "BTN", "table1", "preflop", 10);
+            db.insert.actions("CR", oldHandId + 1, "Christie", "SB", "table1", "preflop", 10);
+            db.insert.actions("XC", oldHandId + 2, "Christie", "BB", "table1", "preflop", 10);
+            db.insert.actions("F", oldHandId + 3, "Christie", "UTG", "table1", "preflop", 10);
+            db.insert.actions("CC", oldHandId + 4, "Christie", "MP", "table1", "preflop", 10);
+            db.insert.actions("C", oldHandId + 5, "Christie", "CO", "table1", "preflop", 10);
             // Two more to make a neat number.  3B and a 4B
-            db.insert.preFlopActions("CR", oldHandId + 6, "Christie", "MP", "table1");
-            db.insert.preFlopActions("CRR", oldHandId + 7, "Christie", "MP", "table1");
+            db.insert.actions("CR", oldHandId + 6, "Christie", "MP", "table1", "preflop", 10);
+            db.insert.actions("CRR", oldHandId + 7, "Christie", "MP", "table1", "preflop", 10);
             int newHandId = db.select.handId();
 
             Debug.Assert(newHandId == oldHandId + 8, "select.HandId() is not working");
@@ -91,6 +86,7 @@ namespace peanut
             double vpip_btn = db.select.VPIP("Christie", "BTN");
             Debug.Assert(vpip_btn == 100, "Failed to get positional VPIP stat");
             Console.WriteLine("Passed positional VPIP...");
+            Console.WriteLine("select.VPIP() is working...");
             Console.WriteLine("");
 
             double pfr = db.select.PFR("Christie");
@@ -101,6 +97,7 @@ namespace peanut
             double pfr_btn = db.select.PFR("Christie", "CO");
             Debug.Assert(pfr_btn == 0, "Failed to get positional PFR stat");
             Console.WriteLine("Passed positional PFR...");
+            Console.WriteLine("select.PFR() is working...");
             Console.WriteLine("");
 
             Console.WriteLine("End of database API testing...");
