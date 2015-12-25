@@ -33,7 +33,9 @@ namespace peanut.Database
             command.Parameters.Add(new SQLiteParameter("@username", username));
             command.ExecuteNonQuery();
         }
-        public void actions(string actions, int handId, string username, string position, string tableName, string streetName, int finalPotSize)
+        public void actions(string actions, int handId, string username, string position, string tableName, string streetName, 
+                            int finalPotSize, 
+                            int opened, int bet3, int bet4, int aggressor, int win) // Booleans represented as integers as SQLITE does not suppoer BOOL
         {
             sql = Resources.insertActions;
             command = new SQLiteCommand(sql, dbConnection);
@@ -43,53 +45,16 @@ namespace peanut.Database
             command.Parameters.Add(new SQLiteParameter("@position", position));
             command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
             command.Parameters.Add(new SQLiteParameter("@streetName", streetName));
+
             command.Parameters.Add(new SQLiteParameter("@finalPotSize", finalPotSize));
+
+            command.Parameters.Add(new SQLiteParameter("@flg_opp", opened));
+            command.Parameters.Add(new SQLiteParameter("@flg_3b", bet3));
+            command.Parameters.Add(new SQLiteParameter("@flg_4b", bet4));
+            command.Parameters.Add(new SQLiteParameter("@flg_agg", aggressor));
+            command.Parameters.Add(new SQLiteParameter("@flg_win", win));
             command.ExecuteNonQuery();
         }
-        /*public void preFlopActions(string actions, int handId, string username, string position, string tableName)
-        {
-            sql = Resources.insertPreFlopActions;
-            command = new SQLiteCommand(sql, dbConnection);
-            command.Parameters.Add(new SQLiteParameter("@actionLine", actions));
-            command.Parameters.Add(new SQLiteParameter("@handId", handId));
-            command.Parameters.Add(new SQLiteParameter("@username", username));
-            command.Parameters.Add(new SQLiteParameter("@position", position));
-            command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
-            command.ExecuteNonQuery();
-        }
-        public void flopActions(string actions, int handId, string username, string position, string tableName)
-        {
-            sql = Resources.insertFlopActions;
-            command = new SQLiteCommand(sql, dbConnection);
-            command.Parameters.Add(new SQLiteParameter("@actionLine", actions));
-            command.Parameters.Add(new SQLiteParameter("@handId", handId));
-            command.Parameters.Add(new SQLiteParameter("@username", username));
-            command.Parameters.Add(new SQLiteParameter("@position", position));
-            command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
-            command.ExecuteNonQuery();
-        }
-        public void turnActions(string actions, int handId, string username, string position, string tableName)
-        {
-            sql = Resources.insertTurnActions;
-            command = new SQLiteCommand(sql, dbConnection);
-            command.Parameters.Add(new SQLiteParameter("@actionLine", actions));
-            command.Parameters.Add(new SQLiteParameter("@handId", handId));
-            command.Parameters.Add(new SQLiteParameter("@username", username));
-            command.Parameters.Add(new SQLiteParameter("@position", position));
-            command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
-            command.ExecuteNonQuery();
-        }
-        public void riverActions(string actions, int handId, string username, string position, string tableName)
-        {
-            sql = Resources.insertRiverActions;
-            command = new SQLiteCommand(sql, dbConnection);
-            command.Parameters.Add(new SQLiteParameter("@actionLine", actions));
-            command.Parameters.Add(new SQLiteParameter("@handId", handId));
-            command.Parameters.Add(new SQLiteParameter("@username", username));
-            command.Parameters.Add(new SQLiteParameter("@position", position));
-            command.Parameters.Add(new SQLiteParameter("@tableName", tableName));
-            command.ExecuteNonQuery();
-        }*/
         public void table(string tableName)
         {
             sql = Resources.insertTable;

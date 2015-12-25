@@ -2,13 +2,20 @@
 CREATE TABLE possibleActions (id INTEGER PRIMARY KEY, action_line VARCHAR(50) UNIQUE);
 CREATE TABLE history (
 	id INTEGER PRIMARY KEY, 
-	action_id INTEGER REFERENCES playerActions(id), /* Action player made on this street */
-	hand_id INTEGER,  /* What hand this is */
+	action_id INTEGER REFERENCES playerActions(id),
+	hand_id INTEGER,
 	user_id INTEGER REFERENCES users(id),
-	position_id INTEGER REFERENCES positions(id), /* Position on the table for this hand */
+	position_id INTEGER REFERENCES positions(id),
 	table_id INTEGER REFERENCES tableNames(id),
-	street_id INTEGER REFERENCES streets(id), /* preflop, flop, turn or river */
-	final_pot_size INTEGER /* pot size at end of street */
+	street_id INTEGER REFERENCES streets(id),
+	pot_size INTEGER, /* Size of the pot at the end of the betting round */
+	flg_has_position INTEGER, /* 1 if the Player is closest to BTN in the hand */
+
+	flg_opp INTEGER,
+	flg_3bet INTEGER,
+	flg_4bet INTEGER,
+	flg_agg INTEGER,
+	flg_win INTEGER
 );
 CREATE TABLE communityCards (
 	id INTEGER PRIMARY KEY,
@@ -20,8 +27,6 @@ CREATE TABLE communityCards (
 	riverCard_id INTEGER
 );
 CREATE TABLE streets (id INTEGER PRIMARY KEY, name VARCHAR(7));
-CREATE TABLE userStats (id INTEGER PRIMARY KEY, user_id INTEGER, statId INTEGER, hand_id INTEGER);
-CREATE TABLE statNames (id INTEGER PRIMARY KEY, name VARCHAR(5) UNIQUE);
 CREATE TABLE userHands (id INTEGER PRIMARY KEY, hand_id INTEGER UNIQUE, pocketCards1_id INTEGER, pocketCards2_id INTEGER);
 CREATE TABLE tableNames (id INTEGER PRIMARY KEY, name VARCHAR(100) UNIQUE);
 CREATE TABLE users (id INTEGER PRIMARY KEY, username VARCHAR(100) UNIQUE);
@@ -32,9 +37,7 @@ CREATE TABLE cards(
 );
 
 /* Populate the tables */
-
-INSERT INTO statNames (name) VALUES
-("DBF"),("VPIP"),("PFR"),("3B");
+INSERT INTO tableNames (name) VALUES ("UNKNOWN");
 
 INSERT INTO streets (name) VALUES
 ("preflop"),("flop"),("turn"),("river");

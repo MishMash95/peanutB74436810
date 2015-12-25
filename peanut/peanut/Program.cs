@@ -41,7 +41,7 @@ namespace peanut
 
             //db.truncateTable("possibleActions");
             db.truncateTable("history");
-            db.truncateTable("tableNames");
+            //db.truncateTable("tableNames");
             db.truncateTable("users");
             //db.truncateTable("streets");
             //db.truncateTable("positions");
@@ -63,7 +63,7 @@ namespace peanut
             int oldHandId = db.select.handId();
             Console.WriteLine("Start of test. handId = " + oldHandId);
             // VPIP(ALL) = 87.5%  VPIP(BTN) = 100%  PFR(ALL) = 50%   PFR(CO) = 0%
-            db.insert.actions("R", oldHandId, "Christie", "BTN", "table1", "preflop", 10);
+            db.insert.actions("R", oldHandId, "Christie", "BTN", "table1", "preflop", 10, 0, 1, 0, 1, 1);
             db.insert.actions("CR", oldHandId + 1, "Christie", "SB", "table1", "preflop", 10);
             db.insert.actions("XC", oldHandId + 2, "Christie", "BB", "table1", "preflop", 10);
             db.insert.actions("F", oldHandId + 3, "Christie", "UTG", "table1", "preflop", 10);
