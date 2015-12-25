@@ -38,16 +38,20 @@ namespace peanut
 
             // Begin testing
 
-            db.truncateTable("possibleActions");
+            Console.WriteLine("");
+            Console.WriteLine("Testing database API...");
+            Console.WriteLine("");
+
+            //db.truncateTable("possibleActions");
             db.truncateTable("history_preflop");
             db.truncateTable("history_flop");
             db.truncateTable("history_turn");
             db.truncateTable("history_river");
             db.truncateTable("tableNames");
             db.truncateTable("users");
-            db.truncateTable("positions");
+            //db.truncateTable("positions");
             Console.WriteLine("Finished emptying tables...");
-            Console.WriteLine("\n");
+            Console.WriteLine("");
             
             string[] usernames = new string[30] { "Christie", "Vernon", "Keisha", "Tonia", "Leopoldo", "Asuncion", "Pattie", "Mimi", "Alessandra", "Genesis", "Latoya", "Winfred", "Bennie", "Les", "Jerri", "Ashlea", "Faustino", "Corey", "Tonja", "Diann", "Spring", "Coral", "Dominque", "Olene", "Ileen", "Barbar", "Rachell", "Brice", "Shizuko", "Sondra" };
             string[] positions = new string[9] { "BTN", "SB", "BB", "UTG", "UTG+1", "MP1", "MP2", "HJ", "CO" };
@@ -62,6 +66,7 @@ namespace peanut
             }
 
             int oldHandId = db.select.handId();
+            Console.WriteLine("Start of test. handId = " + oldHandId);
             // VPIP(ALL) = 87.5%  VPIP(BTN) = 100%  PFR(ALL) = 50%   PFR(CO) = 0%
             db.insert.preFlopActions("R", oldHandId, "Christie", "BTN", "table1");
             db.insert.preFlopActions("CR", oldHandId + 1, "Christie", "SB", "table1");
@@ -69,25 +74,37 @@ namespace peanut
             db.insert.preFlopActions("F", oldHandId + 3, "Christie", "UTG", "table1");
             db.insert.preFlopActions("CC", oldHandId + 4, "Christie", "MP", "table1");
             db.insert.preFlopActions("C", oldHandId + 5, "Christie", "CO", "table1");
-            // Two more to make a neat number  3B and a 4B
+            // Two more to make a neat number.  3B and a 4B
             db.insert.preFlopActions("CR", oldHandId + 6, "Christie", "MP", "table1");
             db.insert.preFlopActions("CRR", oldHandId + 7, "Christie", "MP", "table1");
             int newHandId = db.select.handId();
 
-            Debug.Assert(newHandId == oldHandId + 5, "HandId is failing to increment");
-            Console.WriteLine("HandId is successfully incrementing");
+            Debug.Assert(newHandId == oldHandId + 8, "select.HandId() is not working");
+            Console.WriteLine("select.handId() is working...");
 
-            int vpip = db.select.VPIP("Christie");
-            Console.WriteLine("Testing database API...");
+            double vpip = db.select.VPIP("Christie");
             Console.WriteLine("VPIP:");
-            Debug.Assert(vpip == 88, "Failed to get positional VPIP stat");
+            Debug.Assert(vpip == 87.5, "Failed to get general VPIP stat");
+            Console.WriteLine("Passed general VPIP...");
 
-            int vpip_btn = db.select.VPIP("Christie", "BTN");
-            Debug.Assert(vpip == 100, "Failed to get general VPIP stat");
-            Console.WriteLine("Passed VPIP...");
-            Console.WriteLine("\n");
+            double vpip_btn = db.select.VPIP("Christie", "BTN");
+            Debug.Assert(vpip_btn == 100, "Failed to get positional VPIP stat");
+            Console.WriteLine("Passed positional VPIP...");
+            Console.WriteLine("");
 
-            
+            double pfr = db.select.PFR("Christie");
+            Console.WriteLine("VPIP:");
+            Debug.Assert(vpip == 50, "Failed to get general PFR stat");
+            Console.WriteLine("Passed general PFR...");
+
+            double pfr_btn = db.select.PFR("Christie", "CO");
+            Debug.Assert(vpip_btn == 0, "Failed to get positional PFR stat");
+            Console.WriteLine("Passed positional PFR...");
+            Console.WriteLine("");
+
+            Console.WriteLine("End of database API testing...");
+            Console.WriteLine("");
+
             Console.ReadLine();
 
         }

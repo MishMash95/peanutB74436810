@@ -47,7 +47,7 @@ namespace peanut.Database
             {
                 // Database file does not exists, so make it
                 SQLiteConnection.CreateFile(path + dbFile);
-                Console.WriteLine("Creating database file: `" + path + dbFile + "`");
+                Console.WriteLine("Creating database file: `" + dbFile + "`");
 
                 dbConnection = new SQLiteConnection("Data Source=" + path + dbFile + ";Version=3;");
                 dbConnection.Open();
