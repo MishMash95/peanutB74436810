@@ -81,6 +81,7 @@ namespace peanut
 
             Debug.Assert(newHandId == oldHandId + 8, "select.HandId() is not working");
             Console.WriteLine("select.handId() is working...");
+            Console.WriteLine("");
 
             double vpip = db.select.VPIP("Christie");
             Console.WriteLine("VPIP:");
@@ -93,12 +94,12 @@ namespace peanut
             Console.WriteLine("");
 
             double pfr = db.select.PFR("Christie");
-            Console.WriteLine("VPIP:");
-            Debug.Assert(vpip == 50, "Failed to get general PFR stat");
+            Console.WriteLine("PFR:");
+            Debug.Assert(pfr == 50, "Failed to get general PFR stat");
             Console.WriteLine("Passed general PFR...");
 
             double pfr_btn = db.select.PFR("Christie", "CO");
-            Debug.Assert(vpip_btn == 0, "Failed to get positional PFR stat");
+            Debug.Assert(pfr_btn == 0, "Failed to get positional PFR stat");
             Console.WriteLine("Passed positional PFR...");
             Console.WriteLine("");
 

@@ -14,4 +14,4 @@ CAST(
 	INNER JOIN users ON(users.id = history_preflop.user_id)
 	WHERE users.username = @username
 	|ANDWHERE_POSITION|
-) AS float) * 100 AS VPIP
+) AS float) * 100 AS PFR
