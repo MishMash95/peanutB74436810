@@ -75,11 +75,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bitmaps.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Bitmaps.resx</DependentUpon>
-    </Compile>
     <Compile Include="Bot logic\PokerBot.cs" />
     <Compile Include="Bot logic\PokerBotController.cs" />
     <Compile Include="Common\Action.cs" />
@@ -110,6 +105,33 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="tessdata\eng.cube.bigrams">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="tessdata\eng.cube.fold">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="tessdata\eng.cube.lm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="tessdata\eng.cube.nn">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="tessdata\eng.cube.params">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="tessdata\eng.cube.size">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="tessdata\eng.cube.word-freq">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="tessdata\eng.tesseract_cube.nn">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="tessdata\eng.traineddata">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hand Evaluator\HandEvaluator.csproj">
@@ -122,10 +144,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Bitmaps.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Bitmaps.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -156,67 +174,9 @@
     <Content Include="Database\Resources\tableExists.sql" />
     <Content Include="Database\Resources\truncateTable.sql" />
     <Content Include="Natives\Tesseract.dll" />
-    <Content Include="Reader\Resources\3cards.bmp" />
-    <Content Include="Reader\Resources\4cards.bmp" />
-    <Content Include="Reader\Resources\5cards.bmp" />
-    <Content Include="Reader\Resources\C10.bmp" />
-    <Content Include="Reader\Resources\C2.bmp" />
-    <Content Include="Reader\Resources\C3.bmp" />
-    <Content Include="Reader\Resources\C4.bmp" />
-    <Content Include="Reader\Resources\C5.bmp" />
-    <Content Include="Reader\Resources\C6.bmp" />
-    <Content Include="Reader\Resources\C7.bmp" />
-    <Content Include="Reader\Resources\C8.bmp" />
-    <Content Include="Reader\Resources\C9.bmp" />
-    <Content Include="Reader\Resources\CA.bmp" />
-    <Content Include="Reader\Resources\CJ.bmp" />
-    <Content Include="Reader\Resources\CK.bmp" />
-    <Content Include="Reader\Resources\CQ.bmp" />
-    <Content Include="Reader\Resources\D10.bmp" />
-    <Content Include="Reader\Resources\D2.bmp" />
-    <Content Include="Reader\Resources\D3.bmp" />
-    <Content Include="Reader\Resources\D4.bmp" />
-    <Content Include="Reader\Resources\D5.bmp" />
-    <Content Include="Reader\Resources\D6.bmp" />
-    <Content Include="Reader\Resources\D7.bmp" />
-    <Content Include="Reader\Resources\D8.bmp" />
-    <Content Include="Reader\Resources\D9.bmp" />
-    <Content Include="Reader\Resources\DA.bmp" />
-    <Content Include="Reader\Resources\DJ.bmp" />
-    <Content Include="Reader\Resources\DK.bmp" />
-    <Content Include="Reader\Resources\DQ.bmp" />
-    <Content Include="Reader\Resources\H10.bmp" />
-    <Content Include="Reader\Resources\H2.bmp" />
-    <Content Include="Reader\Resources\H3.bmp" />
-    <Content Include="Reader\Resources\H4.bmp" />
-    <Content Include="Reader\Resources\H5.bmp" />
-    <Content Include="Reader\Resources\H6.bmp" />
-    <Content Include="Reader\Resources\H7.bmp" />
-    <Content Include="Reader\Resources\H8.bmp" />
-    <Content Include="Reader\Resources\H9.bmp" />
-    <Content Include="Reader\Resources\HA.bmp" />
-    <Content Include="Reader\Resources\HJ.bmp" />
-    <Content Include="Reader\Resources\HK.bmp" />
-    <Content Include="Reader\Resources\HQ.bmp" />
-    <Content Include="Reader\Resources\NoHand.bmp" />
-    <Content Include="Reader\Resources\S10.bmp" />
-    <Content Include="Reader\Resources\S2.bmp" />
-    <Content Include="Reader\Resources\S3.bmp" />
-    <Content Include="Reader\Resources\S4.bmp" />
-    <Content Include="Reader\Resources\S5.bmp" />
-    <Content Include="Reader\Resources\S6.bmp" />
-    <Content Include="Reader\Resources\S7.bmp" />
-    <Content Include="Reader\Resources\S8.bmp" />
-    <Content Include="Reader\Resources\S9.bmp" />
-    <Content Include="Reader\Resources\SA.bmp" />
-    <Content Include="Reader\Resources\SJ.bmp" />
-    <Content Include="Reader\Resources\SK.bmp" />
-    <Content Include="Reader\Resources\SQ.bmp" />
-    <Content Include="Reader\Resources\table1.bmp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="Reader\TesseractOCR\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.99.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.99.0\build\net45\System.Data.SQLite.Core.targets')" />

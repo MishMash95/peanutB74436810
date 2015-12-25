@@ -17,6 +17,7 @@ namespace peanut.Bot_logic {
         The idea here is to abstract away the logic of the bot, from the control of the bot.
     */
     abstract class PokerBot {
+        public string profileName { get; internal set; } = "Default";
 
         public Common.Action onPreFlop(Hand hand) {
             return new ActionFold();
@@ -36,5 +37,9 @@ namespace peanut.Bot_logic {
     }
 
     // ~TEMP~
-    class PokerBotTest : PokerBot { }
+    class PokerBotRandom : PokerBot {
+        public PokerBotRandom() {
+            profileName = "RandomBot";
+        }
+    }
 }

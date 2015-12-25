@@ -1,4 +1,5 @@
 ﻿using peanut.Common;
+using peanut.Reader;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,9 +27,48 @@ namespace peanut.Bot_logic {
     class PokerBotController {
 
         private PokerBot bot;
+        private TableReader tableReader;
+        private IntPtr windowHandle;
 
-        public PokerBotController( PokerBot bot ) {
-            this.bot = bot;
+        public PokerBotController( PokerBot bot, IntPtr windowHandle ) {
+            this.bot          = bot;
+            this.windowHandle = windowHandle;
+            tableReader       = new TableReader(windowHandle);
+        }
+
+        /*
+            Start the bot logic.
+            Sets up any necessary pre-conditions that the controller requires to run 
+            and then instantiates the main logic loop.
+        */
+        public void begin() {
+
+
+            while( true) {
+                step();
+                System.Threading.Thread.Sleep(2000);
+            }
+        }
+
+        /*
+            Perform interval repeated actions. 
+            This is the loop process function which is called.
+        */
+        public void step() {
+
+            // Update table reader to current state:
+            tableReader.readImage();
+
+            // Get Pocket cards
+            // ...
+
+            // Get Community Cards
+            Console.WriteLine("\n\n --- Retrieving Community Cards --- ");
+            Card[] communityCards = tableReader.getCommunityCards();
+            foreach( Card c in communityCards) {
+                Console.Write(c.ToString() + " ");
+            }
+            Console.WriteLine();
         }
 
         
