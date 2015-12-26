@@ -20,8 +20,8 @@ namespace peanut.Database
             }
             else
             {
-                sql = sql.Replace("|WHERE_POSITION|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
-                sql = sql.Replace("|ANDWHERE_POSITION|", "AND position_id = (SELECT id FROM positions WHERE positionName = " + position + " ");
+                sql = sql.Replace("|WHERE_POSITION|", "AND position_id = (SELECT id FROM positions WHERE positionName = \"" + position + "\") ");
+                sql = sql.Replace("|ANDWHERE_POSITION|", "AND position_id = (SELECT id FROM positions WHERE positionName = \"" + position + "\") ");
             }
 
             return sql;

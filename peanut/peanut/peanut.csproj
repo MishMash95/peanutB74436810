@@ -77,6 +77,7 @@
   <ItemGroup>
     <Compile Include="Bot logic\PokerBot.cs" />
     <Compile Include="Bot logic\PokerBotController.cs" />
+    <Compile Include="Common\Calculator.cs" />
     <Compile Include="Common\Action.cs" />
     <Compile Include="Common\Bet.cs" />
     <Compile Include="Common\Card.cs" />
@@ -164,13 +165,9 @@
     <Content Include="Database\Resources\getPFR.sql" />
     <Content Include="Database\Resources\getUserId.sql" />
     <Content Include="Database\Resources\getVPIP.sql" />
-    <Content Include="Database\Resources\handRangeFromPercent.sql" />
-    <Content Include="Database\Resources\insertFlopActions.sql" />
     <Content Include="Database\Resources\insertPlayer.sql" />
-    <Content Include="Database\Resources\insertPreFlopActions.sql" />
-    <Content Include="Database\Resources\insertRiverActions.sql" />
+    <Content Include="Database\Resources\insertActions.sql" />
     <Content Include="Database\Resources\insertTable.sql" />
-    <Content Include="Database\Resources\insertTurnActions.sql" />
     <Content Include="Database\Resources\tableExists.sql" />
     <Content Include="Database\Resources\truncateTable.sql" />
     <Content Include="Natives\Tesseract.dll" />

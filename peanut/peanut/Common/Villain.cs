@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using HoldemHand;
+
 namespace peanut.Common {
 
 
@@ -15,6 +17,7 @@ namespace peanut.Common {
         private String   name { get; }
         private Position pos { get; }
         private State    state { get; }
+        private Hand     handMask { get; }
     }
 
 
