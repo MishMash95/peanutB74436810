@@ -78,7 +78,7 @@ namespace peanut
                 case "9":
                     cardRank = Card.Rank.Nine;
                     break;
-                case "10":
+                case "T":
                     cardRank = Card.Rank.Ten;
                     break;
                 case "J":

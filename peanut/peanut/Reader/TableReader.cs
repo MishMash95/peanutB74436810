@@ -40,7 +40,7 @@ namespace peanut.Reader
             Updates the current cached bitmap to a new one from the given table.
         */
         public void readImage() {
-            lastCachedBitmap = new Bitmap("testImage.png");// captureWindowFrame(...);
+            lastCachedBitmap = new Bitmap("testImage6.png");// captureWindowFrame(...);
         }
 
 
@@ -95,6 +95,23 @@ namespace peanut.Reader
         public ActionStack getAction() {
             return null;
         }
+
+        public void test0_TestCardInputs() {
+            Console.WriteLine(" # Running TableReader test on multiple input images:");
+
+            for (int i = 1; i < 8; i++) {
+                string fname = @"testImage" + i + ".png";
+                Console.WriteLine("Testing table scan on: " + fname);
+                lastCachedBitmap = new Bitmap(fname);
+                Card[] cards = getCommunityCards();
+                Console.Write("\tBOARD: ");
+                foreach( Card c in cards) {
+                    Console.Write(c.ToString() + " ");
+                }
+                Console.WriteLine("\n");
+             }
+        }
+
 
     }
 }

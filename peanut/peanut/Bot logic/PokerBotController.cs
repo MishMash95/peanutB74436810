@@ -43,10 +43,11 @@ namespace peanut.Bot_logic {
         */
         public void begin() {
 
+            tableReader.test0_TestCardInputs();
 
-            while( true) {
-                step();
-                System.Threading.Thread.Sleep(2000);
+            while ( true) {
+                //step();
+                System.Threading.Thread.Sleep(10000000);
             }
         }
 
