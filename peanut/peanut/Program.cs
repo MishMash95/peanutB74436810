@@ -26,30 +26,21 @@ namespace peanut
             string dbName = "test_" + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".sqlite";
             var db = new Database.Database(dbName);
 
-            /*var cd = new CardDetection();
-            Card[] cards = cd.RetieveCommunityCards();
-            foreach (Card c in cards)
-            {
-                Console.WriteLine("RANK:" + c.rank);
-                Console.WriteLine("SUIT:" + c.suit);
-                Console.WriteLine("NEXT CARD...");
-            }*/
-
             Console.WriteLine("");
             Console.WriteLine("Testing database API...");
             Console.WriteLine("");
 
-            //db.truncateTable("possibleActions");
+            /*
+                pre-populated tables should not be truncated/emptied as the queries rely on them. 
+                They include: possibleActions, streets, positions
+            */
             db.truncateTable("history");
-            //db.truncateTable("tableNames");
             db.truncateTable("users");
-            //db.truncateTable("streets");
-            //db.truncateTable("positions");
             Console.WriteLine("Finished emptying tables...");
             Console.WriteLine("");
             
-            string[] usernames = new string[1] { "peanut" };
-            string[] positions = new string[9] { "BTN", "SB", "BB", "UTG", "UTG+1", "MP1", "MP2", "HJ", "CO" };
+            string[] usernames = new string[6] { "peanut", "villain1", "villain2", "villain3", "villain4", "villain5" };
+            string[] positions = new string[6] { "BTN", "SB", "BB", "UTG", "MP", "CO" };
             string[] tables = new string[4] { "table1", "table2", "table3", "table4" };
             db.insert.table(tables[0]);
             db.insert.table(tables[1]);
@@ -60,45 +51,88 @@ namespace peanut
                 db.insert.player(usernames[i]);
             }
 
-            int oldHandId = db.select.handId();
-            Console.WriteLine("Start of test. handId = " + oldHandId);
-            // VPIP(ALL) = 87.5%  VPIP(BTN) = 100%  PFR(ALL) = 50%   PFR(CO) = 0%
-            /*db.insert.actions("R", oldHandId, "peanut", "BTN", "table1", "preflop", 10);
-            db.insert.actions("CR", oldHandId + 1, "peanut", "SB", "table1", "preflop", 10);
-            db.insert.actions("XC", oldHandId + 2, "peanut", "BB", "table1", "preflop", 10);
-            db.insert.actions("F", oldHandId + 3, "peanut", "UTG", "table1", "preflop", 10);
-            db.insert.actions("CC", oldHandId + 4, "peanut", "MP", "table1", "preflop", 10);
-            db.insert.actions("C", oldHandId + 5, "peanut", "CO", "table1", "preflop", 10);
-            // Two more to make a neat number.  3B and a 4B
-            db.insert.actions("CR", oldHandId + 6, "Christie", "MP", "table1", "preflop", 10);
-            db.insert.actions("CRR", oldHandId + 7, "Christie", "MP", "table1", "preflop", 10);
+            int handId = db.select.handId();
+            Console.WriteLine("Start of test. handId = " + handId);
+            int potSize;
+            /*
+                Scenario 1:
+                folds around to BTN who raises to steal blinds (6p)
+            */
+            potSize = 6;
+            db.insert.actions("F", handId, "villain3", "UTG", "table1", "preflop", potSize);
+            db.insert.actions("F", handId, "villain4", "MP", "table1", "preflop", potSize);
+            db.insert.actions("F", handId, "villain5", "CO", "table1", "preflop", potSize);
+            db.insert.setFlag(new string[] { "opened", "aggressor", "win" });
+            db.insert.actions("R", handId, "peanut", "BTN", "table1", "preflop", potSize);
+            db.insert.actions("F", handId, "villain1", "SB", "table1", "preflop", potSize);
+            db.insert.actions("F", handId, "villain2", "BB", "table1", "preflop", potSize);
+
+            /*
+                Scenario 2:
+                UTG raises (6p), SB 3bets (18p) and UTG 4bets (54), SB folds
+            */
+            potSize = 18 + 54;
+            handId++;
+            db.insert.setFlag(new string[] { "opened", "aggressor", "win", "4bet" });
+            db.insert.actions("RR", handId, "villain2", "UTG", "table1", "preflop", potSize);
+            db.insert.actions("F", handId, "villain3", "MP", "table1", "preflop", potSize);
+            db.insert.actions("F", handId, "villain4", "CO", "table1", "preflop", potSize);
+            db.insert.actions("R", handId, "villain5", "BTN", "table1", "preflop", potSize);
+            db.insert.setFlag(new string[] { "3bets" });
+            db.insert.actions("RF", handId, "peanut", "SB", "table1", "preflop", potSize);
+            db.insert.actions("F", handId, "villain1", "BB", "table1", "preflop", potSize);
+
+            /*
+                More scenarios need to be added for extensive testing...
+            */
+
             int newHandId = db.select.handId();
 
-            Debug.Assert(newHandId == oldHandId + 8, "select.HandId() is not working");
+            Debug.Assert(newHandId == handId, "select.HandId() is not working");
             Console.WriteLine("select.handId() is working...");
             Console.WriteLine("");
 
-            double vpip = db.select.VPIP("Christie");
+            /*
+                VPIP testing
+            */
+            double vpip = db.select.VPIP("peanut");
             Console.WriteLine("VPIP:");
-            Debug.Assert(vpip == 87.5, "Failed to get general VPIP stat");
+            Debug.Assert(vpip == 100, "Failed to get general VPIP stat");
             Console.WriteLine("Passed general VPIP...");
 
-            double vpip_btn = db.select.VPIP("Christie", "BTN");
+            double vpip_btn = db.select.VPIP("peanut", "BTN");
             Debug.Assert(vpip_btn == 100, "Failed to get positional VPIP stat");
             Console.WriteLine("Passed positional VPIP...");
             Console.WriteLine("select.VPIP() is working...");
             Console.WriteLine("");
 
-            double pfr = db.select.PFR("Christie");
+            /*
+                PFR testing
+            */
+            double pfr = db.select.PFR("peanut");
             Console.WriteLine("PFR:");
             Debug.Assert(pfr == 50, "Failed to get general PFR stat");
             Console.WriteLine("Passed general PFR...");
 
-            double pfr_btn = db.select.PFR("Christie", "CO");
-            Debug.Assert(pfr_btn == 0, "Failed to get positional PFR stat");
+            double pfr_co = db.select.PFR("peanut", "CO");
+            Debug.Assert(pfr_co == 0, "Failed to get positional PFR stat");
             Console.WriteLine("Passed positional PFR...");
             Console.WriteLine("select.PFR() is working...");
-            Console.WriteLine("");*/
+            Console.WriteLine("");
+
+            /*
+                3BET testing
+            */
+            double bet3 = db.select.PFR("peanut");
+            Console.WriteLine("PFR:");
+            Debug.Assert(pfr == 50, "Failed to get general 3Bet stat");
+            Console.WriteLine("Passed general 3Bet...");
+
+            double bet3_sb = db.select.PFR("peanut", "SB");
+            Debug.Assert(bet3_sb == 0, "Failed to get positional 3Bet stat");
+            Console.WriteLine("Passed positional 3Bet...");
+            Console.WriteLine("select.BET3() is working...");
+            Console.WriteLine("");
 
             Console.WriteLine("End of database API testing...");
             Console.WriteLine("");

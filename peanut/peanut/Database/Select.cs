@@ -25,16 +25,6 @@ namespace peanut.Database
             this.dbConnection = dbcon;
         }
 
-
-        /*
-            To add:
-            -agg fac/steal%/flop cbet/foldflopcbet/limpcall%/bbfoldtosteal/wtsd
-
-            Parameters:
-            -people in pot/pot size
-
-            Have yet to test any functions and still need to add sql structures for most of them
-        */
         public double VPIP(string username, string position = "ANY")
         {
             sql = Resources.getVPIP;
