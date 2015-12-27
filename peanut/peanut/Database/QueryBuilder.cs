@@ -11,18 +11,28 @@ namespace peanut.Database
     */
     public class QueryBuilder
     {
-        protected string buildQuery(string sql, string position)
+        private string filter = ""; // WHERE clause(s) attatched to the sql query
+        protected string buildQuery(string sql, string position, string street)
         {
-            if (position == "ANY")
-            {
+            filter = "";
+            if(position == "ANY" && street == "ANY") {
                 sql = sql.Replace("|WHERE_POSITION|", "");
                 sql = sql.Replace("|ANDWHERE_POSITION|", "");
+                return sql;
             }
-            else
-            {
-                sql = sql.Replace("|WHERE_POSITION|", "AND position_id = (SELECT id FROM positions WHERE positionName = \"" + position + "\") ");
-                sql = sql.Replace("|ANDWHERE_POSITION|", "AND position_id = (SELECT id FROM positions WHERE positionName = \"" + position + "\") ");
+
+            if(position != "ANY") {
+                // Querying a specific player position
+                filter += " positions.name = \"" + position + "\" ";
+                if(street != "ANY") {
+                    filter += " AND streets.name = \"" + street + "\" ";
+                }
+            }else if(street != "ANY") {
+                filter += " streets.name = \"" + street + "\" ";
             }
+
+            sql = sql.Replace("|WHERE_POSITION|", " WHERE " + filter);
+            sql = sql.Replace("|ANDWHERE_POSITION|", " AND " + filter);
 
             return sql;
         }

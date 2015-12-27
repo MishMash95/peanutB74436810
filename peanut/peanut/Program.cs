@@ -172,8 +172,36 @@ namespace peanut
             Console.WriteLine("");
 
             /*
-                Add some post flop scenarios  
+                Need to add a lot more post flop scenarios
             */
+
+            /*
+                Scenario 5 (Flop donk):
+                MP opens (3x), BB calls -> BB raises 1/2 pot, MP folds
+            */
+            potSize = 6 + 6 + 1;
+            handId++;
+            db.insert.actions("F", handId, "villain5", "UTG", "table1", "preflop", potSize);
+
+            db.insert.setFlag(new string[] { "open", "aggressor" });
+            db.insert.actions("R", handId, "peanut", "MP", "table1", "preflop", potSize);
+            db.insert.raises(db.select.lastHistoryId(), 4);
+
+            db.insert.actions("F", handId, "villain1", "CO", "table1", "preflop", potSize);
+            db.insert.actions("F", handId, "villain2", "BTN", "table1", "preflop", potSize);
+            db.insert.actions("F", handId, "villain3", "SB", "table1", "preflop", potSize);
+
+            db.insert.setFlag(new string[] { "coldcall" });
+            db.insert.actions("C", handId, "villain4", "BB", "table1", "preflop", potSize);
+            /* ---- FLOP ---- */
+            potSize += 8;
+
+            db.insert.setFlag(new string[] { "donk", "win" });
+            db.insert.actions("R", handId, "villain4", "BB", "table1", "flop", potSize);
+            db.insert.raises(db.select.lastHistoryId(), 8);
+
+            db.insert.setFlag(new string[] { "has_position" });
+            db.insert.actions("F", handId, "villain4", "MP", "table1", "flop", potSize);
 
             /*
                 3BET testing

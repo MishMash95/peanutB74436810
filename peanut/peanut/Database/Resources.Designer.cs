@@ -82,6 +82,31 @@ namespace peanut.Database {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT SELECT
+        ///CAST(
+        ///(
+        ///	SELECT COUNT(*) FROM history 
+        ///	INNER JOIN users ON(users.id = history.user_id)
+        ///	INNER JOIN possibleActions ON (possibleActions.id = history.action_id)
+        ///	INNER JOIN streets ON(streets.id = history.street_id)
+        ///	WHERE history.flg_3bet = 1
+        ///	AND users.username = @username
+        ///	|ANDWHERE_POSITION|
+        ///	
+        ///) AS float)/ CAST(
+        ///(
+        ///	SELECT COUNT(*) FROM history 
+        ///	INNER JOIN users ON(users.id = history.user_id)
+        ///	INNER JOIN streets ON(streets.id = history.street_id)
+        ///	WHERE users.username = @use [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string get3Bet {
+            get {
+                return ResourceManager.GetString("get3Bet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SELECT MAX(hand_id) AS HANDID FROM history.
         /// </summary>
         internal static string getHandId {
@@ -174,7 +199,7 @@ namespace peanut.Database {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INSERT INTO raises (history_id, hand_id, raise1, raise2, raise3, raise4, raise5)
+        ///   Looks up a localized string similar to INSERT INTO raises (history_id, raise1, raise2, raise3, raise4, raise5)
         ///VALUES(@historyId, @raise1, @raise2, @raise3, @raise4, @raise5).
         /// </summary>
         internal static string insertRaises {

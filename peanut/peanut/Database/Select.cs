@@ -36,34 +36,46 @@ namespace peanut.Database
         public double VPIP(string username, string position = "ANY")
         {
             sql = Resources.getVPIP;
-            sql = buildQuery(sql, position);
+            sql = buildQuery(sql, position, "preflop");
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@username", username));
             reader = command.ExecuteReader();
             reader.Read();
-            return Convert.ToDouble(reader["VPIP"]);
+            if (reader.HasRows) {
+                return Convert.ToDouble(reader["VPIP"]);
+            } else {
+                return 0;
+            }
         }
         public double PFR(string username, string position = "ANY")
         {
             sql = Resources.getPFR;
-            sql = buildQuery(sql, position);
+            sql = buildQuery(sql, position, "preflop");
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@username", username));
             reader = command.ExecuteReader();
             reader.Read();
-            return Convert.ToDouble(reader["PFR"]);
+            if (reader.HasRows) {
+                return Convert.ToDouble(reader["PFR"]);
+            } else {
+                return 0;
+            }
         }
 
-        /*public int BET3(string username, string position = "ANY", string street = "ANY")
+        public double BET3(string username, string position = "ANY", string street = "ANY")
         {
             sql = Resources.get3Bet;
-            sql = buildQuery(sql, position);
+            sql = buildQuery(sql, position, street);
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@username", username));
             reader = command.ExecuteReader();
             reader.Read();
-            return (int)reader["3BET"];
-        }*/
+            if (reader.HasRows) {
+                return Convert.ToDouble(reader["3BET"]);
+            } else {
+                return 0;
+            }
+        }
 
         /*
         public int getF3B(string username, string position = "ANY")

@@ -149,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Database\Resources\createTables.sql" />
+    <Content Include="Database\Resources\get3Bet.sql" />
     <Content Include="Database\Resources\getHandId.sql" />
     <Content Include="Database\Resources\getPFR.sql" />
     <Content Include="Database\Resources\getUserId.sql" />
