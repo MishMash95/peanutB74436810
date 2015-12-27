@@ -52,7 +52,6 @@ namespace peanut.Database
                 dbConnection = new SQLiteConnection("Data Source=" + path + dbFile + ";Version=3;");
                 dbConnection.Open();
                
-                
                 sql = Resources.createTables;
                 // Create all the tables
                 try

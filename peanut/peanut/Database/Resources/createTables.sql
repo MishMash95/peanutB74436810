@@ -11,7 +11,7 @@ CREATE TABLE history (
 	pot_size INTEGER,			/* Size of the pot at the end of the betting round */
 
 	flg_has_position INTEGER,   /* If the player has position over all the other players in the hand */
-	flg_open INTEGER,
+	flg_open INTEGER,   /* If the player is the first to raise on the given street */
 	flg_3bet INTEGER,
 	flg_4bet INTEGER, 
 	flg_limp INTEGER, /* If the player called the big blind */
@@ -24,17 +24,43 @@ CREATE TABLE history (
 CREATE TABLE communityCards (
 	id INTEGER PRIMARY KEY,
 	hand_id INTEGER UNIQUE,
-	flop1Card_id INTEGER,
-	flop2Card_id INTEGER,
-	flop3Card_id INTEGER,
-	turnCard_id INTEGER,
-	riverCard_id INTEGER
+	flop_card1 INTEGER REFERENCES cards(id),
+	flop_card2 INTEGER REFERENCES cards(id),
+	flop_card3 INTEGER REFERENCES cards(id),
+	turn_card INTEGER REFERENCES cards(id),
+	river_card INTEGER REFERENCES cards(id)
 );
-CREATE TABLE streets (id INTEGER PRIMARY KEY, name VARCHAR(7));
-CREATE TABLE userHands (id INTEGER PRIMARY KEY, hand_id INTEGER UNIQUE, pocketCards1_id INTEGER, pocketCards2_id INTEGER);
-CREATE TABLE tableNames (id INTEGER PRIMARY KEY, name VARCHAR(100) UNIQUE);
-CREATE TABLE users (id INTEGER PRIMARY KEY, username VARCHAR(100) UNIQUE);
-CREATE TABLE positions (id INTEGER PRIMARY KEY, positionName VARCHAR(5) UNIQUE);
+CREATE TABLE raises (
+	id INTEGER PRIMARY KEY,
+	history_id INTEGER REFERENCES history(id),
+	raise1 INTEGER,
+	raise2 INTEGER,
+	raise3 INTEGER,
+	raise4 INTEGER,
+	raise5 INTEGER
+);
+CREATE TABLE streets (
+	id INTEGER PRIMARY KEY, 
+	name VARCHAR(7)
+);
+CREATE TABLE userHands (
+	id INTEGER PRIMARY KEY, 
+	hand_id INTEGER UNIQUE, 
+	hole_card1 INTEGER REFERENCES cards(id), 
+	hole_card2 INTEGER REFERENCES cards(id)
+);
+CREATE TABLE tableNames (
+	id INTEGER PRIMARY KEY, 
+	name VARCHAR(100) UNIQUE
+);
+CREATE TABLE users (
+	id INTEGER PRIMARY KEY, 
+	username VARCHAR(100) UNIQUE
+);
+CREATE TABLE positions (
+	id INTEGER PRIMARY KEY, 
+	positionName VARCHAR(5) UNIQUE
+);
 CREATE TABLE cards(
 	id INTEGER PRIMARY KEY,
 	card VARCHAR(2)

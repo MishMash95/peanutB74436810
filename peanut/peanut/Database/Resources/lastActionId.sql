@@ -1,0 +1,1 @@
+SELECT MAX(id) AS lastId FROM history

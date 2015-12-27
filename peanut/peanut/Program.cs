@@ -18,8 +18,8 @@ namespace peanut
         static void Main(string[] args)
         {
             // Test spawning off a bot controller
-            PokerBotController pbc = new PokerBotController(new PokerBotRandom(), new IntPtr(0));
-            pbc.begin();
+            /*PokerBotController pbc = new PokerBotController(new PokerBotRandom(), new IntPtr(0));
+            pbc.begin();*/
 
             // Entry point for program
 
@@ -46,7 +46,7 @@ namespace peanut
             db.insert.table(tables[1]);
             db.insert.table(tables[2]);
             db.insert.table(tables[3]);
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 6; i++)
             {
                 db.insert.player(usernames[i]);
             }
@@ -62,11 +62,15 @@ namespace peanut
             db.insert.actions("F", handId, "villain3", "UTG", "table1", "preflop", potSize);
             db.insert.actions("F", handId, "villain4", "MP", "table1", "preflop", potSize);
             db.insert.actions("F", handId, "villain5", "CO", "table1", "preflop", potSize);
+
             db.insert.setFlag(new string[] { "opened", "aggressor", "win" });
             db.insert.actions("R", handId, "peanut", "BTN", "table1", "preflop", potSize);
+            db.insert.raises(db.select.lastHistoryId(), 4); /* Raised by 4p (3x) */
+
             db.insert.actions("F", handId, "villain1", "SB", "table1", "preflop", potSize);
             db.insert.actions("F", handId, "villain2", "BB", "table1", "preflop", potSize);
 
+            
             /*
                 Scenario 2:
                 UTG raises (6p), SB 3bets (18p) and UTG 4bets (54), SB folds
@@ -75,11 +79,14 @@ namespace peanut
             handId++;
             db.insert.setFlag(new string[] { "opened", "aggressor", "win", "4bet" });
             db.insert.actions("RR", handId, "villain2", "UTG", "table1", "preflop", potSize);
+            db.insert.raises(db.select.lastHistoryId(), 4, 36);
+
             db.insert.actions("F", handId, "villain3", "MP", "table1", "preflop", potSize);
             db.insert.actions("F", handId, "villain4", "CO", "table1", "preflop", potSize);
             db.insert.actions("R", handId, "villain5", "BTN", "table1", "preflop", potSize);
             db.insert.setFlag(new string[] { "3bets" });
             db.insert.actions("RF", handId, "peanut", "SB", "table1", "preflop", potSize);
+            db.insert.raises(db.select.lastHistoryId(), 12);
             db.insert.actions("F", handId, "villain1", "BB", "table1", "preflop", potSize);
 
             /*

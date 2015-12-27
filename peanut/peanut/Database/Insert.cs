@@ -47,10 +47,15 @@ namespace peanut.Database
         */
         public void resetFlags() {
             this.flags = new Dictionary<string, int>() {
-                {"opened", 0},
+                {"has_position", 0},
+                {"open", 0},
                 {"3bet", 0},
                 {"4bet", 0},
+                {"limp", 0},
+                {"cold_call", 0},
+                {"squeeze", 0},
                 {"aggressor", 0},
+                {"donk", 0},
                 {"win", 0}
             };
         }
@@ -66,7 +71,26 @@ namespace peanut.Database
             }
         }
 
+        public void raises(int historyId, int raise1, int raise2 = 0, int raise3 = 0, int raise4 = 0, int raise5 = 0) {
+            sql = Resources.insertRaises;
+            command = new SQLiteCommand(sql, dbConnection);
+            command.Parameters.Add(new SQLiteParameter("@historyId", historyId));
+            command.Parameters.Add(new SQLiteParameter("@raise1", raise1));
+            command.Parameters.Add(new SQLiteParameter("@raise2", raise2));
+            command.Parameters.Add(new SQLiteParameter("@raise3", raise3));
+            command.Parameters.Add(new SQLiteParameter("@raise4", raise4));
+            command.Parameters.Add(new SQLiteParameter("@raise5", raise5));
+            command.ExecuteNonQuery();
+        }
+
         public void actions(string actions, int handId, string username, string position, string tableName, string streetName,  int potSize) {
+
+            // The button player preflop always has position on the other players in the hand
+            if (position == "BTN" && streetName == "preflop") {
+                this.flags["has_position"] = 1;
+            }
+
+
             sql = Resources.insertActions;
             command = new SQLiteCommand(sql, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@actionLine", actions));
@@ -77,11 +101,17 @@ namespace peanut.Database
             command.Parameters.Add(new SQLiteParameter("@streetName", streetName));
             command.Parameters.Add(new SQLiteParameter("@potSize", potSize));
 
-            command.Parameters.Add(new SQLiteParameter("@flg_opp", this.flags["opened"]));
-            command.Parameters.Add(new SQLiteParameter("@flg_3b", this.flags["3bet"]));
-            command.Parameters.Add(new SQLiteParameter("@flg_4b", this.flags["4bet"]));
-            command.Parameters.Add(new SQLiteParameter("@flg_agg", this.flags["aggressor"]));
+            command.Parameters.Add(new SQLiteParameter("@flg_has_position", this.flags["has_position"]));
+            command.Parameters.Add(new SQLiteParameter("@flg_open", this.flags["open"]));
+            command.Parameters.Add(new SQLiteParameter("@flg_3bet", this.flags["3bet"]));
+            command.Parameters.Add(new SQLiteParameter("@flg_4bet", this.flags["4bet"]));
+            command.Parameters.Add(new SQLiteParameter("@flg_limp", this.flags["limp"]));
+            command.Parameters.Add(new SQLiteParameter("@flg_cold_call", this.flags["cold_call"]));
+            command.Parameters.Add(new SQLiteParameter("@flg_squeeze", this.flags["squeeze"]));
+            command.Parameters.Add(new SQLiteParameter("@flg_aggressor", this.flags["aggressor"]));
+            command.Parameters.Add(new SQLiteParameter("@flg_donk", this.flags["donk"]));
             command.Parameters.Add(new SQLiteParameter("@flg_win", this.flags["win"]));
+
             command.ExecuteNonQuery();
             this.resetFlags();
         }

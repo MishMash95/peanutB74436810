@@ -25,6 +25,14 @@ namespace peanut.Database
             this.dbConnection = dbcon;
         }
 
+        public int lastHistoryId() {
+            sql = Resources.lastActionId;
+            command = new SQLiteCommand(sql, dbConnection);
+            reader = command.ExecuteReader();
+            reader.Read();
+            return Convert.ToInt32(reader["lastId"]);
+        }
+
         public double VPIP(string username, string position = "ANY")
         {
             sql = Resources.getVPIP;

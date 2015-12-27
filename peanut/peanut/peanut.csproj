@@ -86,6 +86,11 @@
     <Compile Include="Common\Villain.cs" />
     <Compile Include="Database\Insert.cs" />
     <Compile Include="Database\QueryBuilder.cs" />
+    <Compile Include="Database\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Database\Select.cs" />
     <Compile Include="Database\Test.cs" />
     <Compile Include="Reader\ActionReader.cs" />
@@ -97,11 +102,6 @@
     <Compile Include="Database\SQLiteHelper.cs" />
     <Compile Include="Database\SQLiteTable.cs" />
     <Compile Include="Reader\TableReader.cs" />
-    <Compile Include="Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -141,13 +141,26 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources.resx">
+    <EmbeddedResource Include="Database\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Database\Resources\createTables.sql" />
+    <Content Include="Database\Resources\getHandId.sql" />
+    <Content Include="Database\Resources\getPFR.sql" />
+    <Content Include="Database\Resources\getUserId.sql" />
+    <Content Include="Database\Resources\getVPIP.sql" />
+    <Content Include="Database\Resources\insertActions.sql" />
+    <Content Include="Database\Resources\insertPlayer.sql" />
+    <Content Include="Database\Resources\insertRaises.sql" />
+    <Content Include="Database\Resources\insertTable.sql" />
+    <Content Include="Database\Resources\lastActionId.sql" />
+    <Content Include="Database\Resources\tableExists.sql" />
+    <Content Include="Database\Resources\truncateTable.sql" />
+    <None Include="Resources\createTables.sql" />
     <Content Include="x64\liblept171.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -160,16 +173,6 @@
     <Content Include="x86\libtesseract304.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Database\Resources\createTables.sql" />
-    <Content Include="Database\Resources\getHandId.sql" />
-    <Content Include="Database\Resources\getPFR.sql" />
-    <Content Include="Database\Resources\getUserId.sql" />
-    <Content Include="Database\Resources\getVPIP.sql" />
-    <Content Include="Database\Resources\insertPlayer.sql" />
-    <Content Include="Database\Resources\insertActions.sql" />
-    <Content Include="Database\Resources\insertTable.sql" />
-    <Content Include="Database\Resources\tableExists.sql" />
-    <Content Include="Database\Resources\truncateTable.sql" />
     <Content Include="Natives\Tesseract.dll" />
   </ItemGroup>
   <ItemGroup>
