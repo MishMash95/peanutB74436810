@@ -148,17 +148,15 @@ namespace peanut.Database {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INSERT INTO history (action_id, hand_id, user_id, position_id, table_id, street_id, pot_size, flg_has_position, flg_opp, flg_3bet, flg_4bet, flg_agg, flg_win)
+        ///   Looks up a localized string similar to INSERT INTO history (action_id, hand_id, user_id, position_id, table_id, street_id, pot_size, 
+        ///					flg_has_position, flg_open, flg_3bet, flg_4bet, flg_limp, flg_cold_call, flg_squeeze, flg_aggressor, flg_donk, flg_win)
         ///VALUES(
         ///	(SELECT id FROM possibleActions WHERE action_line = @actionLine),
         ///	@handId,
         ///	(SELECT id FROM users WHERE username = @username),
         ///	(SELECT id FROM positions WHERE positionName = @position),
         ///	(SELECT id FROM tableNames WHERE name = @tableName),
-        ///	(SELECT id FROM streets WHERE name = @streetName),
-        ///	@potSize,
-        ///	@flg_has_position,
-        ///	@flg_ope [rest of string was truncated]&quot;;.
+        ///	(SELECT id FROM streets WHERE na [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string insertActions {
             get {
@@ -177,7 +175,7 @@ namespace peanut.Database {
         
         /// <summary>
         ///   Looks up a localized string similar to INSERT INTO raises (history_id, hand_id, raise1, raise2, raise3, raise4, raise5)
-        ///VALUES(@history_id, @hand_id, @raise1, @raise2, @raise3, @raise4, @raise5).
+        ///VALUES(@historyId, @raise1, @raise2, @raise3, @raise4, @raise5).
         /// </summary>
         internal static string insertRaises {
             get {

@@ -160,7 +160,6 @@
     <Content Include="Database\Resources\lastActionId.sql" />
     <Content Include="Database\Resources\tableExists.sql" />
     <Content Include="Database\Resources\truncateTable.sql" />
-    <None Include="Resources\createTables.sql" />
     <Content Include="x64\liblept171.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
