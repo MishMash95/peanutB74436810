@@ -14,109 +14,64 @@ namespace peanut.Common
     */
     class Calculator
     {
-        public double getEquity(HoldemHand.Hand hero, List<Villain> villains, HoldemHand.Hand boardH) {
-            // static double WinOddsMonteCarlo(ulong pocket, ulong board, ulong dead, int nopponents, double duration)
-            ulong pocket = hero.MaskValue;
-            ulong board = boardH.MaskValue;
-            int nopponents = villains.Count;
-            int duration = 5;
-            System.Diagnostics.Debug.Assert(nopponents > 0 && nopponents <= 9);
-            System.Diagnostics.Debug.Assert(duration > 0.0);
-            System.Diagnostics.Debug.Assert(HoldemHand.Hand.BitCount(pocket) == 2);
-            System.Diagnostics.Debug.Assert(HoldemHand.Hand.BitCount(board) >= 0 && HoldemHand.Hand.BitCount(board) <= 5);
+        public double getEquity(HoldemHand.Hand hero, List<Villain> opponents, HoldemHand.Hand board) {
+            ulong heroMask = hero.MaskValue;
+            ulong boardMask = board.MaskValue;
+            string mergedVillainRange = "";
 
-            // Keep track of stats
-            double win = 0.0, counta = 0.0;
-
-            // Keep track of time
-            double start = HoldemHand.Hand.CurrentTime;
-
-            // Loop for specified time duration
-            while ((HoldemHand.Hand.CurrentTime - start) < duration) {
-                // Player and board info
-                ulong boardmask = HoldemHand.Hand.RandomHand(board | pocket, 5);
-                uint playerHandVal = HoldemHand.Hand.Evaluate(pocket | boardmask);
-
-                // Ensure that dead, board, and pocket cards are not
-                // available to opponent hands.
-                ulong deadmask = boardmask | pocket;
-
-                // Comparison Results
-                bool greaterthan = true;
-                bool greaterthanequal = true;
-
-                long player1Wins = 0, player2Wins = 0,
-                    ties = 0, countb = 0;
-
-                // Get random opponent hand values
-                for (int i = 0; i < nopponents; i++) {
-                    // Get Opponent hand info
-                    //ulong oppmask = HoldemHand.Hand.RandomHand(deadmask, 2);
-                    ulong[] oppmask = PocketHands.Query("Connected Offsuit"); // Needs to be changed
-                    /* ulong[] oppmask PocketHands.Query(Villain[i].query...); */
-
-
-                    // Iterate through 10000 trials.            
-                    for (int trials = 0; trials < 10000; trials++) {
-                        // Pick a random pocket hand for player2                
-                        ulong player2Mask = HoldemHand.Hand.RandomHand(oppmask, pocket, 2);
-
-                        // Pick a random board                
-                        ulong boardMask
-                            = HoldemHand.Hand.RandomHand(pocket | player2Mask, 5);
-
-                        // Create a hand value for each player
-                        uint player1HandValue =
-                            HoldemHand.Hand.Evaluate(boardMask | pocket, 7);
-                        uint player2HandValue =
-                            HoldemHand.Hand.Evaluate(boardMask | player2Mask, 7);
-
-                        // Calculate Winners                
-                        if (player1HandValue > player2HandValue) {
-                            player1Wins++;
-                        } else if (player1HandValue < player2HandValue) {
-                            player2Wins++;
-                        } else {
-                            ties++;
-                        }
-                        countb++;
-                    }
-
-                    // For debugging
-                    Console.WriteLine("Player1: {0:0.0}%",
-                                        (player1Wins + ties / 2.0) / ((double)countb) * 100.0);
-
-                    //uint oppHandVal = HoldemHand.Hand.Evaluate(oppmask | boardmask);
-
-                    // Remove these opponent cards from future opponents
-                    //deadmask |= oppmask;
-
-                    // Determine compare status
-                    /*if (playerHandVal < player2HandValue) {
-                        greaterthan = greaterthanequal = false;
-                        break;
-                    } else if (playerHandVal <= player2HandValue) {
-                        greaterthan = false;
-                    }*/
-                }
-
-                // Calculate stats
-                if (greaterthan)
-                    win += 1.0;
-                else if (greaterthanequal)
-                    win += 0.5;
-
-                counta += 1.0;
+            // Will need a more sophisticated method for merging all the villain ranges
+            foreach (Villain v in opponents) {
+                mergedVillainRange += v.range;
             }
 
-            // Return stats
-            return (counta == 0.0 ? 0.0 : win / counta);
+            // A Pocket Query Returns an array of all
+            // hands that meet the criterion.
+            ulong[] opposingRange = PocketHands.Query(mergedVillainRange);
+            //ulong[] hero = PocketHands.Query("Connected Offsuit");
+
+            // Holds stats
+            long heroWins = 0, villainsWin = 0,
+                ties = 0, count = 0;
+
+            // Iterate through 10000 trials.            
+            for (int trials = 0; trials < 10000; trials++) {
+                // Pick a random pocket hand out of 
+                // player1's query set                
+                //ulong player1Mask = Hand.RandomHand(player1, 0UL, 2);
+
+                // Pick a random pocket hand for player2                
+                ulong villainMask = HoldemHand.Hand.RandomHand(opposingRange, heroMask, 2);
+
+                // Pick a random board         
+                // Need to write a method for creating a random entire board if preflop, just turn/river on flop etc
+                // Based on the board given parameter       
+                //ulong boardMask
+                //    = Hand.RandomHand(player1Mask | player2Mask, 5);
+
+                // Create a hand value for each player
+                uint heroHandValue =
+                    HoldemHand.Hand.Evaluate(boardMask | heroMask, 7);
+                uint villainHandValue =
+                    HoldemHand.Hand.Evaluate(boardMask | villainMask, 7);
+
+                // Calculate Winners                
+                if (heroHandValue > villainHandValue) {
+                    heroWins++;
+                } else if (heroHandValue < villainHandValue) {
+                    villainsWin++;
+                } else {
+                    ties++;
+                }
+                count++;
+            }
+
+            return (heroWins + ties / 2.0) / ((double)count) * 100.0;
         }
 
         // Return a hand mask of the cards that improve our hand
-        static ulong Outs(ulong pocket, ulong board) {
+        static ulong getOuts(ulong pocket, ulong board) {
             ulong retval = 0UL;
-            ulong hand = pocket + board;
+            ulong hand = pocket + board; // May be wrong
 
             // Get original hand value
             uint playerOrigHandVal = HoldemHand.Hand.Evaluate(hand);

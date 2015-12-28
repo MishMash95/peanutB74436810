@@ -17,7 +17,7 @@ namespace peanut.Common {
         private String   name { get; }
         private Position pos { get; }
         private State    state { get; }
-        private Hand     handMask { get; }
+        public String     range { get; } /* Range of hands the bot has put him on at the current time */
     }
 
 
