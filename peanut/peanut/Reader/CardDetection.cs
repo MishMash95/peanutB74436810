@@ -146,10 +146,10 @@ namespace peanut
 
             // ------------------------------------------------------------------//
             // Define relative ratios ~ For relative reading
-            float relativeCardStartX     = 349.0f/ 794.0f;///0.33477135461f;
+            float relativeCardStartX     = 347.0f/ 794.0f;///0.33477135461f;
             float relativeCardStartRankY = 337.0f/ 545.0f;//0.3153942428f;
             float relativeCardWidth      = 15.0f/ 794.0f;//0.02188868042f;
-            float relativeCardRankHeight = 20.0f/ 545.0f;//0.05006257822f;
+            float relativeCardRankHeight = 22.0f/ 545.0f;//0.05006257822f;
 
             float relativeCardSpacing = 48.0f / 794.0f;
 
@@ -233,10 +233,10 @@ namespace peanut
 
                 if( text.Length > 0 ) {
                     text = normaliseToNumberString(text);
-                    //Console.WriteLine("detected string: " + text);
+                   // Console.WriteLine("detected string: " + text);
 
                     string convtext = text[0] + "";
-                    if( text.Contains( "10" )) {
+                    if( text.Contains( "10" ) || text.Contains("1N")) {
                         convtext = "T";
                     }
                     // Has trouble finding Q's
@@ -271,6 +271,7 @@ namespace peanut
             }
 
         }
+
         public static void filterBMP2(Bitmap bmp) {
             GraphicsUnit gu = GraphicsUnit.Pixel;
             RectangleF bounds = bmp.GetBounds(ref gu);
@@ -279,14 +280,15 @@ namespace peanut
 
                     Color col = bmp.GetPixel(i, j);
 
-                    if (col.R >180 || col.G >180 || col.B > 180) {
-                        bmp.SetPixel(i, j, Color.FromArgb(255, 255, 255));
+                    if (col.R >75 || col.G >75 || col.B > 75) {
+                        //bmp.SetPixel(i, j, Color.FromArgb(255, 255, 255));
                     } else {
                         bmp.SetPixel(i, j, Color.FromArgb(0, 0, 0));
                     }
                 }
             }
         }
+
         public static Bitmap upscaleBmp( Bitmap source ) {
             return upscaleBmp(source, 1);
         }

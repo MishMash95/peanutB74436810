@@ -50,7 +50,8 @@ namespace peanut.Reader
             (from 0 to 5 ) with 0 being the seat at the bottom (i.e where the bot should be)
         */
         public int getButtonPosition() {
-            return 0;
+            TableReader.actionReader.setBitmap(lastCachedBitmap);
+            return TableReader.actionReader.getButtonPosition();
         }
 
         // Get community cards
@@ -83,9 +84,10 @@ namespace peanut.Reader
 
             This is so seat position can still be easily verified
         */
-        public Villain[] getVillains() {
+        public Villain[] getVillains() { return getVillains(null, -1);  }
+        public Villain[] getVillains(Card[] holeCards, int buttonPosition ) {
             TableReader.actionReader.setBitmap(lastCachedBitmap);
-            return TableReader.actionReader.getVillains();
+            return TableReader.actionReader.getVillains(holeCards, buttonPosition);
         }
 
         // Get ActionStack
@@ -100,23 +102,27 @@ namespace peanut.Reader
         public void test0_TestCardInputs() {
             Console.WriteLine(" # Running TableReader test on multiple input images:");
 
-            for (int i = 1; i < 2; i++) {
+            for (int i = 8; i < 13; i++) {
                 string fname = @"testImage" + i + ".png";
                 Console.WriteLine("Testing table scan on: " + fname);
                 lastCachedBitmap = new Bitmap(fname);
                 Card[] cards = getCommunityCards();
                 Card[] hole  = getPocketCards();
-                Console.Write("\tBOARD: ");
+
+                int buttonPos = getButtonPosition();
+                Console.WriteLine("Button Pos: " + buttonPos);
+                Console.Write("BOARD: ");
                 foreach( Card c in cards) {
                     Console.Write(c.ToString() + " ");
                 }
-                Console.Write("\tPocket: ");
+                Console.WriteLine();
+                Console.Write("Pocket: ");
                 foreach (Card c in hole) {
                     Console.Write(c.ToString() + " ");
                 }
-
-                Console.Write("\tVillains: ");
-                Villain[] vills = getVillains();
+                Console.WriteLine();
+                Console.WriteLine("Villains: \n");
+                Villain[] vills = getVillains(hole, 0);
                 foreach (Villain v in vills) {
                     Console.WriteLine(v.ToString()+"\n");
                 }
