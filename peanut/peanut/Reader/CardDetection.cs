@@ -287,12 +287,14 @@ namespace peanut
                 }
             }
         }
-
         public static Bitmap upscaleBmp( Bitmap source ) {
+            return upscaleBmp(source, 1);
+        }
+        public static Bitmap upscaleBmp( Bitmap source, int upscaleFac ) {
             GraphicsUnit gu = GraphicsUnit.Pixel;
             int width = (int)source.GetBounds(ref gu).Width;
             int height = (int)source.GetBounds(ref gu).Height;
-            const int upscaleFac = 1;
+            //const int upscaleFac = 1;
             Bitmap newb = new Bitmap(width *upscaleFac, height * upscaleFac);
             Graphics g = Graphics.FromImage(newb);
             g.DrawImage(source, new Rectangle(0, 0, width* upscaleFac, height* upscaleFac), new Rectangle(0, 0, width, height), gu);

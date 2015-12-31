@@ -84,7 +84,8 @@ namespace peanut.Reader
             This is so seat position can still be easily verified
         */
         public Villain[] getVillains() {
-            return null;
+            TableReader.actionReader.setBitmap(lastCachedBitmap);
+            return TableReader.actionReader.getVillains();
         }
 
         // Get ActionStack
@@ -99,7 +100,7 @@ namespace peanut.Reader
         public void test0_TestCardInputs() {
             Console.WriteLine(" # Running TableReader test on multiple input images:");
 
-            for (int i = 1; i < 6; i++) {
+            for (int i = 1; i < 2; i++) {
                 string fname = @"testImage" + i + ".png";
                 Console.WriteLine("Testing table scan on: " + fname);
                 lastCachedBitmap = new Bitmap(fname);
@@ -113,6 +114,13 @@ namespace peanut.Reader
                 foreach (Card c in hole) {
                     Console.Write(c.ToString() + " ");
                 }
+
+                Console.Write("\tVillains: ");
+                Villain[] vills = getVillains();
+                foreach (Villain v in vills) {
+                    Console.WriteLine(v.ToString()+"\n");
+                }
+
                 Console.WriteLine("\n");
              }
         }
