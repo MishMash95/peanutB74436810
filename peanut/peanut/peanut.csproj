@@ -62,6 +62,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -102,6 +103,12 @@
     <Compile Include="Database\SQLiteHelper.cs" />
     <Compile Include="Database\SQLiteTable.cs" />
     <Compile Include="Reader\TableReader.cs" />
+    <Compile Include="UI\PeanutUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\PeanutUI.Designer.cs">
+      <DependentUpon>PeanutUI.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -145,6 +152,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\PeanutUI.resx">
+      <DependentUpon>PeanutUI.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
