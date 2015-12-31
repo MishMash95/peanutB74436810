@@ -329,8 +329,11 @@ namespace peanut
         }
 
         // Returns true if two colours are similar
-        public static Boolean colourIsSimilar(Color A, Color B) {
-            return (Math.Abs(A.R - B.R) < 20 && Math.Abs(A.B - B.B) < 20 && Math.Abs(A.G - B.G) < 20);
+        public static Boolean colourIsSimilar( Color A, Color B ) {
+            return colourIsSimilar(A, B, 20);
+        }
+        public static Boolean colourIsSimilar(Color A, Color B, int tolerance) {
+            return (Math.Abs(A.R - B.R) < tolerance && Math.Abs(A.B - B.B) < tolerance && Math.Abs(A.G - B.G) < tolerance);
         }
         
         /*

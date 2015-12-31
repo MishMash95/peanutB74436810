@@ -121,7 +121,7 @@ namespace peanut.Reader
                     Console.WriteLine(v.ToString()+"\n");
                 }
 
-                Console.WriteLine("\n");
+                Console.WriteLine("\n--------------------------------------------------------");
              }
         }
 

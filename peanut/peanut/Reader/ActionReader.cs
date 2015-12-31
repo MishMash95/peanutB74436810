@@ -54,8 +54,11 @@ namespace peanut.Reader {
         // Extract a villain from the given region
         public Villain getVillainFromRegion( Rectangle imageRegion, int posIndex ) {
 
+            // Calculate Card Region (Used to determine if folded)
+            Rectangle cardRegion = new Rectangle(imageRegion.X, imageRegion.Y-30, imageRegion.Width, 20 );
+
             // Read information from image:
-            Bitmap bcr = CardDetection.CopyBitmapSection(bitmap, imageRegion);
+            Bitmap bcr  = CardDetection.CopyBitmapSection(bitmap, imageRegion);
 
             // Format
             bcr = CardDetection.upscaleBmp(bcr, 2);
@@ -84,7 +87,10 @@ namespace peanut.Reader {
                     }
 
                     // Check if player has folded:
-
+                    Color c = CardDetection.sampleBitmapAverageColour(bitmap, cardRegion);
+                    if( !CardDetection.colourIsSimilar(c, Color.FromArgb(0xA44644), 50)) {
+                        playerState = State.FOLDED;
+                    }
                 }
             }
             bcr.Save("villain" + posIndex + ".png", ImageFormat.Png);
