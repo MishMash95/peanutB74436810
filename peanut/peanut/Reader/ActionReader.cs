@@ -85,7 +85,7 @@ namespace peanut.Reader {
                     // Check if player has folded:
                     if (posIndex > 0) {
                         Color c = CardDetection.sampleBitmapAverageColour(bitmap, cardRegion);
-                        if (!CardDetection.colourIsSimilar(c, Color.FromArgb(0xA44644), 75)) {
+                        if (!CardDetection.colourIsSimilar(c, Color.FromArgb(0xA44644), 50)) {
                             playerState = State.FOLDED;
                         }
                     }
@@ -127,7 +127,7 @@ namespace peanut.Reader {
             }
 
             // Determine position
-            int relativePositionToButton = (posIndex-buttonPosition) % 6;
+            int relativePositionToButton = ((posIndex-buttonPosition)+6) % 6;
             Position pos                 = (Position)relativePositionToButton;
 
             // ----- Construct villain ----- //

@@ -122,7 +122,7 @@ namespace peanut.Reader
                 }
                 Console.WriteLine();
                 Console.WriteLine("Villains: \n");
-                Villain[] vills = getVillains(hole, 0);
+                Villain[] vills = getVillains(hole, buttonPos);
                 foreach (Villain v in vills) {
                     Console.WriteLine(v.ToString()+"\n");
                 }
