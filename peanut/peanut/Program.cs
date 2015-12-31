@@ -18,8 +18,8 @@ namespace peanut
         static void Main(string[] args)
         {
             // Test spawning off a bot controller
-            /*PokerBotController pbc = new PokerBotController(new PokerBotRandom(), new IntPtr(0));
-            pbc.begin();*/
+            PokerBotController pbc = new PokerBotController(new PokerBotRandom(), new IntPtr(0));
+            pbc.begin();
 
             // Entry point for program
 

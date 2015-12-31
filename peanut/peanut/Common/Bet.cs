@@ -10,7 +10,7 @@ namespace peanut.Common {
         A 'Bet' is the container class for any kind of bet, it contains information such as amount, and villain who made the bet.
     */
     class Bet {
-        private int betAmount;
+        private int     betAmount;
         private Villain aggressor;
 
         public Bet( int betAmt, Villain villain ) {

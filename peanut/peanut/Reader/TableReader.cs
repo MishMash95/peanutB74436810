@@ -68,8 +68,8 @@ namespace peanut.Reader
             Returns the bots pocket cards. (Assumed that the bot is sitting in the bottom seat)
         */
         public Card[] getPocketCards() {
-            // TableReader.cardDetector.
-            return null;
+            TableReader.cardDetector.setBitmap(lastCachedBitmap);
+            return TableReader.cardDetector.RetrievePocketCards();
         }
 
         // Get villains
@@ -99,13 +99,18 @@ namespace peanut.Reader
         public void test0_TestCardInputs() {
             Console.WriteLine(" # Running TableReader test on multiple input images:");
 
-            for (int i = 1; i < 8; i++) {
+            for (int i = 1; i < 6; i++) {
                 string fname = @"testImage" + i + ".png";
                 Console.WriteLine("Testing table scan on: " + fname);
                 lastCachedBitmap = new Bitmap(fname);
                 Card[] cards = getCommunityCards();
+                Card[] hole  = getPocketCards();
                 Console.Write("\tBOARD: ");
                 foreach( Card c in cards) {
+                    Console.Write(c.ToString() + " ");
+                }
+                Console.Write("\tPocket: ");
+                foreach (Card c in hole) {
                     Console.Write(c.ToString() + " ");
                 }
                 Console.WriteLine("\n");

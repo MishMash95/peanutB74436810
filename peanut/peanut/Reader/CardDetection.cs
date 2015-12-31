@@ -36,10 +36,10 @@ namespace peanut
 
             // ------------------------------------------------------------------//
             // Define relative ratios ~ For relative reading
-            float relativeCardStartX = 0.33477135461f;
-            float relativeCardStartRankY = 0.3153942428f;
-            float relativeCardWidth = 0.02188868042f;
-            float relativeCardRankHeight  = 0.05006257822f;
+            float relativeCardStartX     = 266.0f/ 794.0f;///0.33477135461f;
+            float relativeCardStartRankY = 177.0f/ 545.0f;//0.3153942428f;
+            float relativeCardWidth      = 15.0f/ 794.0f;//0.02188868042f;
+            float relativeCardRankHeight = 20.0f/ 545.0f;//0.05006257822f;
             //float relativeCardSpacing     = 54.0f / 794.0f;//0.06801007556f;//0.06557377049f;
 
             // relative spacing
@@ -105,7 +105,9 @@ namespace peanut
 
                 // Perform read
                 //filterBMP2(section);
-                section = upscaleBmp(section);
+                if (rankRegion.Width < 10.0f) {
+                    section = upscaleBmp(section);
+                }
                 section.Save("Card" + i + ".png", ImageFormat.Png);
                 Card.Rank rank    = getCardRankFromBitmap(section);
 
@@ -134,6 +136,89 @@ namespace peanut
             return communityCards;
         }
 
+        // Retrieve Pocket cards
+        public Card[] RetrievePocketCards() {
+            Card[] pocketCards = new Card[2];
+
+            // Get bounds
+            GraphicsUnit gu = GraphicsUnit.Pixel;
+            RectangleF bounds = bitmap.GetBounds(ref gu);
+
+            // ------------------------------------------------------------------//
+            // Define relative ratios ~ For relative reading
+            float relativeCardStartX     = 349.0f/ 794.0f;///0.33477135461f;
+            float relativeCardStartRankY = 337.0f/ 545.0f;//0.3153942428f;
+            float relativeCardWidth      = 15.0f/ 794.0f;//0.02188868042f;
+            float relativeCardRankHeight = 20.0f/ 545.0f;//0.05006257822f;
+
+            float relativeCardSpacing = 48.0f / 794.0f;
+
+            // Relative suit region (266, 198, 14, 14) (794, 547);
+            float relativeSuitRegionX = 349.0f / 794.0f;
+            float relativeSuitRegionY = 354.0f / 547.0f;
+            float relativeSuitRegionW = 14.0f / 794.0f;
+            float relativeSuitRegionH = 14.0f / 547.0f;
+            // ------------------------------------------------------------------//
+            // Capture:
+            for (int i = 0; i < 2; i++) {
+                Rectangle rankRegion = new Rectangle(   (int)Math.Floor((relativeCardStartX + ((relativeCardSpacing) * i))*(bounds.Width)),
+                                                        (int)Math.Floor(relativeCardStartRankY * bounds.Height),
+                                                        (int)Math.Floor(relativeCardWidth * bounds.Width),
+                                                        (int)Math.Floor(relativeCardRankHeight * bounds.Height));
+
+                Rectangle suitRegion = new Rectangle(   (int)Math.Floor((relativeSuitRegionX + (relativeCardSpacing * i)) * (bounds.Width)),
+                                                        (int)Math.Floor(relativeSuitRegionY * bounds.Height),
+                                                        (int)Math.Floor(relativeSuitRegionW * bounds.Width),
+                                                        (int)Math.Floor(relativeSuitRegionH * bounds.Height));
+                //Console.WriteLine(suitRegion.ToString());
+                //Rectangle rankRegion = new Rectangle(397, 269, 18, 22);
+                Bitmap section       = CopyBitmapSection(bitmap, rankRegion);
+                //Bitmap sectionSuit = CopyBitmapSection(bitmap, suitRegion);
+                //sectionSuit.Save("Suitsec" + i + ".png", ImageFormat.Png);
+
+                // Filter out noise
+                filterBMP(section);
+
+                // Stitch multiple sections together (To improve read accuracy)
+                Bitmap b = new Bitmap(rankRegion.Width * 4, rankRegion.Height);
+                Graphics g = Graphics.FromImage(b);
+                g.DrawImage(section, 0, 0);
+                g.DrawImage(section, rankRegion.Width, 0);
+                g.DrawImage(section, rankRegion.Width * 2, 0);
+                g.DrawImage(section, rankRegion.Width * 3, 0);
+                g.Dispose();
+                section = b;
+
+                // Perform read
+                //filterBMP2(section);
+                if (rankRegion.Width < 10.0f) {
+                    section = upscaleBmp(section);
+                }
+                section.Save("Card" + i + ".png", ImageFormat.Png);
+                Card.Rank rank    = getCardRankFromBitmap(section);
+
+                // Determine suit
+
+
+                /*
+                    Determines the suit of the given card by sampling the average colour in a given region.
+                */
+                Color sample   = sampleBitmapAverageColour(bitmap, suitRegion);
+                Card.Suit suit = Card.Suit.NotFound;
+
+                if (rank != Card.Rank.NotFound) {
+                    if ((sample.R > 150) || (sample.R > 110 && sample.G < 90 && sample.B < 90)) { suit = Card.Suit.Hearts; } 
+                    else if (sample.G > 130) { suit = Card.Suit.Clubs; } 
+                    else if (sample.B > 150) { suit = Card.Suit.Diamonds; } 
+                    else if (sample.R < 100 && sample.G < 100 && sample.B < 100) { suit = Card.Suit.Spades; }
+                }
+
+                pocketCards[i] = new Card(suit, rank);
+            }
+            return pocketCards;
+        }
+
+
         // Copies a section of a bitmap and returns a new bitmap:
         public static Bitmap CopyBitmapSection( Bitmap source, Rectangle region ) {
             return source.Clone(region, PixelFormat.Format32bppArgb);
@@ -153,6 +238,10 @@ namespace peanut
                     string convtext = text[0] + "";
                     if( text.Contains( "10" )) {
                         convtext = "T";
+                    }
+                    // Has trouble finding Q's
+                    if(text.Contains("Q")) {
+                        convtext = "Q";
                     }
 
                     return Card.ConvertStringToRank(convtext);
@@ -203,9 +292,10 @@ namespace peanut
             GraphicsUnit gu = GraphicsUnit.Pixel;
             int width = (int)source.GetBounds(ref gu).Width;
             int height = (int)source.GetBounds(ref gu).Height;
-            Bitmap newb = new Bitmap(width *3, height * 3);
+            const int upscaleFac = 1;
+            Bitmap newb = new Bitmap(width *upscaleFac, height * upscaleFac);
             Graphics g = Graphics.FromImage(newb);
-            g.DrawImage(source, new Rectangle(0, 0, width*3, height*3), new Rectangle(0, 0, width, height), gu);
+            g.DrawImage(source, new Rectangle(0, 0, width* upscaleFac, height* upscaleFac), new Rectangle(0, 0, width, height), gu);
             g.Dispose();
             return newb;
         }
